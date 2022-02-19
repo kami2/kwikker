@@ -23,12 +23,12 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
     path('api/', include('kwikapp.urls', namespace='kwikker')),
     path('api/user/', include('kwikapp.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

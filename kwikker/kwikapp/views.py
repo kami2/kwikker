@@ -21,18 +21,16 @@ class KwikUserWritePermission(BasePermission):
         return obj.user == request.user
 
 
-class KwikList(viewsets.ViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+class KwikList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Kwik.objects.all()
+    serializer_class = KwikSerializer
 
-    def list(self, request):
-        serializer_class = KwikSerializer(self.queryset, many=True)
-        return Response(serializer_class.data)
 
-    def retrieve(self, request, pk=None):
-        kwik = get_object_or_404(self.queryset, pk=pk)
-        serializer_class = KwikSerializer(kwik)
-        return Response(serializer_class.data)
+class KwikDetail(generics.RetrieveUpdateDestroyAPIView, KwikUserWritePermission):
+    permission_classes = [KwikUserWritePermission]
+    queryset = Kwik.objects.all()
+    serializer_class = KwikSerializer
 
 
 
