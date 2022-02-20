@@ -22,13 +22,13 @@ class KwikUserWritePermission(BasePermission):
 
 
 class KwikList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
 
 
 class KwikDetail(generics.RetrieveUpdateDestroyAPIView, KwikUserWritePermission):
-    permission_classes = [KwikUserWritePermission]
+    permission_classes = [AllowAny]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
 

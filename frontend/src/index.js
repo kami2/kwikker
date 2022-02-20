@@ -8,6 +8,8 @@ import Footer from './components/Footer';
 import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import Single from './components/Single';
+
 import reportWebVitals from './reportWebVitals';
 
 
@@ -18,6 +20,7 @@ const routing = (
       <Header />
       <Routes>
           <Route exact path='/' element={<App />} />
+          <Route exact path='/:id' element={<Single />} />
           <Route exact path='/register' element={<Register />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/logout' element={<Logout />} />

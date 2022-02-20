@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const Kwiks = (props) => {
 	const { kwiks } = props;
 	const classes = useStyles();
+	console.log(kwiks)
 	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
 	return (
 		<React.Fragment>
@@ -60,6 +61,14 @@ const Kwiks = (props) => {
 											className={classes.kwikTitle}
 										>
 											{kwik.content.substr(0, 50)}...
+										</Typography>
+										<Typography
+											gutterBottom
+											variant="h6"
+											component="h2"
+											className={classes.kwikTitle}
+										>
+											{kwik.user}
 										</Typography>
 										<div className={classes.kwikText}>
 											<Typography

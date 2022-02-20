@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
 from django.conf import settings
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -29,6 +31,9 @@ urlpatterns = [
     path('api/', include('kwikapp.urls', namespace='kwikker')),
     path('api/user/', include('kwikapp.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('docs/', include_docs_urls(title='KwikkerAPI')),
+    path('schema/', get_schema_view(title="Kwikker", description='API for the Kwikker', version="1.0"), name='openapi-schema'),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

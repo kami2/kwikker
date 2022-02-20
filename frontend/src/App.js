@@ -15,10 +15,14 @@ function App() {
                 setAppState({ loading: true });
                 const apiUrl = 'api/';
                 fetch(apiUrl)
-                .then((data) => data.json())
+                .then((data) => {if (!data.ok) {
+                    throw new Error('Network response was not OK')}
+                    return data.json()})
                 .then((kwiks) => {
+                    console.log(kwiks)
                     setAppState({ loading: false, kwiks : kwiks });
-                });
+                }).catch((error) => {console.log(error)});
+
         }, [setAppState]);
 
         return (
