@@ -1,11 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+
 
 const useStyles = makeStyles((theme) => ({
 	cardMedia: {
@@ -60,7 +62,7 @@ const Kwiks = (props) => {
 											component="h2"
 											className={classes.kwikTitle}
 										>
-											{kwik.content.substr(0, 50)}...
+											{kwik.content}
 										</Typography>
 										<Typography
 											gutterBottom

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from kwikapp.models import Kwik
-from .serializers import KwikSerializer, CustomUserSerializer
+from .serializers import KwikSerializer, CustomUserSerializer, CommentKwikSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, DjangoModelPermissions, IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 
@@ -21,14 +21,48 @@ class KwikUserWritePermission(BasePermission):
         return obj.user == request.user
 
 
-class KwikList(generics.ListCreateAPIView):
+
+class KwikListAll(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = KwikSerializer
+    queryset = Kwik.objects.all().order_by('-kwik_date')
+
+
+
+class KwikList(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = KwikSerializer
+
+    def get_queryset(self):
+        user = self.request.query_params.get('user', None)
+        return Kwik.objects.filter(user=user)
+
+
+
+class KwikDetail(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
 
 
-class KwikDetail(generics.RetrieveUpdateDestroyAPIView, KwikUserWritePermission):
-    permission_classes = [AllowAny]
+
+class KwikDetailFilter(generics.ListAPIView):
+    queryset = Kwik.objects.all()
+    serializer_class = KwikSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^content']
+
+
+
+class CreateKwik(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Kwik.objects.all()
+    serializer_class = KwikSerializer
+
+
+
+class DeleteKwik(generics.RetrieveDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
 
@@ -45,6 +79,7 @@ class CustomUserCreate(APIView):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class BlacklistTokenUpdateView(APIView):

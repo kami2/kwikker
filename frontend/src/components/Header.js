@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
+import { Search } from './Search'
+
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -47,6 +49,7 @@ function Header() {
 							Kwikker
 						</Link>
 					</Typography>
+					<Search />
 					<nav>
 						<Link
 							color="textPrimary"

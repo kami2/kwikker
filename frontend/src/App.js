@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Kwik from './components/Kwik';
-import KwikLoadingComponent from './components/KwikLoading';
+import { KwikLoading } from './components/KwikLoading';
+import { CreateKwik } from './components/CreateKwik';
 
 
 function App() {
-        const KwikLoading = KwikLoadingComponent(Kwik);
         const [appState, setAppState] = useState({
             loading: false,
             kwiks: null,
@@ -27,8 +27,9 @@ function App() {
 
         return (
             <div className="App">
-              <h1>Latest Kwiks</h1>
-              <KwikLoading isLoading={appState.loading} kwiks={appState.kwiks} />
+                <CreateKwik />
+                <h1>Latest Kwiks</h1>
+                {appState.loading?<KwikLoading />:<Kwik kwiks={appState.kwiks} />}
             </div>
         );
 }

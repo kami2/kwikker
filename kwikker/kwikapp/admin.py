@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Kwik, NewUser
+from . models import Kwik, NewUser, CommentKwik
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea, CharField
 from django import forms
@@ -38,3 +38,4 @@ class UserAdminConfig(UserAdmin):
 
 admin.site.register(NewUser, UserAdminConfig)
 admin.site.register(Kwik)
+admin.site.register(CommentKwik)
