@@ -44,6 +44,9 @@ export function CreateKwik() {
 			.post(`kwik/create/`, {
 				content: formData.content
 			})
+			.then((res) => {
+				navigate('/');
+			});
     };
     
 
