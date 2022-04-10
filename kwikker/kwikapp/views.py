@@ -2,11 +2,10 @@ from rest_framework import generics, status, viewsets, filters
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from kwikapp.models import Kwik
-from .serializers import KwikSerializer, CustomUserSerializer, CommentKwikSerializer
+from kwikapp.models import Kwik, CommentKwik
+from .serializers import KwikSerializer, CustomUserSerializer, DetailKwikSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, DjangoModelPermissions, IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
-
 
 
 class KwikUserWritePermission(BasePermission):
@@ -42,7 +41,7 @@ class KwikList(generics.ListAPIView):
 class KwikDetail(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     queryset = Kwik.objects.all()
-    serializer_class = KwikSerializer
+    serializer_class = DetailKwikSerializer
 
 
 
@@ -94,3 +93,25 @@ class BlacklistTokenUpdateView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['name'] = user.user_name
+        # ...
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+

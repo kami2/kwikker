@@ -3,19 +3,27 @@ from kwikapp.models import Kwik, NewUser, CommentKwik
 from django.conf import settings
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentKwik
+        fields = ['id', 'kwik', 'user', 'comment', 'comment_date']
+
+
+class DetailKwikSerializer(serializers.ModelSerializer):
+    user_name = serializers.ReadOnlyField(source='user.user_name')
+    comment = CommentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Kwik
+        fields = ('id', 'user', 'user_name', 'content', 'comment')
 
 
 class KwikSerializer(serializers.ModelSerializer):
+    user_name = serializers.ReadOnlyField(source='user.user_name')
+
     class Meta:
         model = Kwik
-        fields = ('id','user', 'content', 'kwik_date')
-
-
-class CommentKwikSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommentKwik
-        fields = ('id', 'kwik', 'user', 'content', 'kwik_date')
-
+        fields = ('id','user', 'user_name', 'content', 'kwik_date')
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -66,6 +74,5 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
-
 
 

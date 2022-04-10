@@ -8,29 +8,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 # Create your models here.
 
-
-class Kwik(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
-    content = models.CharField(max_length=300)
-    kwik_date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.content
-
-
-class CommentKwik(models.Model):
-    kwik = models.ForeignKey(Kwik, on_delete=models.CASCADE, related_name='comment')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=300)
-    comment_date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return str(self.post)
-
-
-# Custom user model
-
-
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, user_name, first_name, password, **other_fields):
@@ -80,3 +57,28 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.user_name
+
+
+
+class Kwik(models.Model):
+    user = models.ForeignKey(NewUser, blank=True, null=True, on_delete=models.CASCADE)
+    content = models.CharField(max_length=300)
+    kwik_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content
+
+
+class CommentKwik(models.Model):
+    kwik = models.ForeignKey(Kwik, on_delete=models.CASCADE, related_name='comment')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=300)
+    comment_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.comment)
+
+
+# Custom user model
+
+

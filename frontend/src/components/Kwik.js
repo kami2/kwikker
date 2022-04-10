@@ -39,16 +39,16 @@ const useStyles = makeStyles((theme) => ({
 const Kwiks = (props) => {
 	const { kwiks } = props;
 	const classes = useStyles();
-	console.log(kwiks)
+	
 	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main">
-				<Grid container spacing={5} alignItems="flex-end">
+				<Grid container justifyContent="center" spacing={4} alignItems="center">
 					{kwiks.map((kwik) => {
 						return (
 							// Enterprise card is full width at sm breakpoint
-							<Grid item key={kwik.id} xs={12} md={4}>
+							<Grid item key={kwik.id} xs={8} md={8}>
 								<Card className={classes.card}>
 									<CardMedia
 										className={classes.cardMedia}
@@ -70,7 +70,7 @@ const Kwiks = (props) => {
 											component="h2"
 											className={classes.kwikTitle}
 										>
-											{kwik.user}
+											{kwik.user_name}
 										</Typography>
 										<div className={classes.kwikText}>
 											<Typography

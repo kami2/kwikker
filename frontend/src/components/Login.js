@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useNavigate } from 'react-router-dom';
+
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -60,13 +61,13 @@ export default function SignIn() {
 				password: formData.password,
 			})
 			.then((res) => {
-				localStorage.setItem('access_token', res.data.access);
+				localStorage.setItem('access_token', res.data.access)
 				localStorage.setItem('refresh_token', res.data.refresh);
 				axiosInstance.defaults.headers['Authorization'] =
 					'JWT ' + localStorage.getItem('access_token');
 				history('/');
 				//console.log(res);
-				//console.log(res.data);
+				console.log(res.data.access); 
 			});
 	};
 

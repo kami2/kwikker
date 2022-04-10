@@ -7,6 +7,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import Timeline from '@material-ui/lab/Timeline';
+import TimelineItem from '@material-ui/lab/TimelineItem';
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
+import TimelineContent from '@material-ui/lab/TimelineContent';
+import TimelineDot from '@material-ui/lab/TimelineDot';
+
+
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -54,6 +62,34 @@ export default function Kwik() {
 					</Typography>
 				</Container>
 			</div>
+
+			<Timeline>
+				{data.kwiks.comment?.map((kwik, i, {length}) => {
+					if (length - 1 === i) {
+						return (
+							<TimelineItem key = {kwik.id}>
+								<TimelineSeparator>
+								  <TimelineDot />
+								</TimelineSeparator>
+								<TimelineContent>{kwik.comment}</TimelineContent>
+							  </TimelineItem>
+						);
+					}
+					else {
+					return (
+						<TimelineItem key = {kwik.id}>
+        					<TimelineSeparator>
+          					<TimelineDot />
+          					<TimelineConnector />
+        					</TimelineSeparator>
+        					<TimelineContent>{kwik.comment}</TimelineContent>
+      					</TimelineItem>
+					);
+					}
+				})};
+    		</Timeline>
+
+
 		</Container>
 	);
 }

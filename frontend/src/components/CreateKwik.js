@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
-import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode'
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+
 
 
 
@@ -17,17 +18,24 @@ const useStyles = makeStyles((theme) => ({
         width: '70ch',
       },
       button: {
-		margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(1),
       },
     },
   }));
 
 
-export function CreateKwik() {
-    const navigate = useNavigate();
+export function CreateKwik(props) {
     const classes = useStyles();
+    const token = localStorage.getItem('access_token');
+    const getUserName = jwt_decode(token)
+
+    const initialFormData = Object.freeze({
+        user: getUserName.user_id,
+		content: '',
+	});
+
     
-    const [formData, updateFormData] = useState('');
+    const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {
 		updateFormData({
@@ -42,16 +50,17 @@ export function CreateKwik() {
 
 		axiosInstance
 			.post(`kwik/create/`, {
-				content: formData.content
+                user: formData.user,
+                content: formData.content
 			})
 			.then((res) => {
-				navigate('/');
+				props.forSubmit();
 			});
     };
     
 
 	return (
-        <form className={classes.root} noValidate autoComplete="off">
+        <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
         <div>
             <TextField
             id="outlined-multiline-static"
@@ -71,8 +80,7 @@ export function CreateKwik() {
             color="primary"
             className={classes.button}
             endIcon={<Icon>send</Icon>}
-            onClick={handleSubmit}
-            />
+            >Send</Button>
         </div>
         </form>
 	);
