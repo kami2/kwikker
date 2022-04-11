@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from kwikapp.models import Kwik, CommentKwik
-from .serializers import KwikSerializer, CustomUserSerializer, DetailKwikSerializer
+from .serializers import KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, DjangoModelPermissions, IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 
@@ -35,6 +35,12 @@ class KwikList(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.query_params.get('user', None)
         return Kwik.objects.filter(user=user)
+
+
+class AddComment(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = CommentKwik.objects.all()
+    serializer_class = CommentSerializer
 
 
 

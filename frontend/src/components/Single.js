@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
+import { AddComment } from './AddComment';
 //MaterialUI
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,18 +25,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Kwik() {
+export default function Single() {
 	const { id } = useParams();
 	const classes = useStyles();
 
 	const [data, setData] = useState({ kwiks: [] });
 
-	useEffect(() => {
+	const loadData = () => {
 		axiosInstance.get(id).then((res) => {
 			setData({ kwiks: res.data });
 			console.log(res.data);
 		});
-	}, [setData]);
+	}
+
+	useEffect(loadData, [setData]);
 
 	return (
 		<Container component="main" maxWidth="md">
@@ -63,29 +66,19 @@ export default function Kwik() {
 				</Container>
 			</div>
 
+			{ axiosInstance.defaults.headers['Authorization'] ? <AddComment kwikId={data.kwiks.id} />: ''}
+
 			<Timeline>
-				{data.kwiks.comment?.map((kwik, i, {length}) => {
-					if (length - 1 === i) {
+				{data.kwiks.comment?.map((kwik, i, { length }) => {
 						return (
-							<TimelineItem key = {kwik.id}>
+							<TimelineItem key={kwik.id}>
 								<TimelineSeparator>
-								  <TimelineDot />
+									<TimelineDot />
+								{length -1 === i ? null : <TimelineConnector />}
 								</TimelineSeparator>
-								<TimelineContent>{kwik.comment}</TimelineContent>
-							  </TimelineItem>
+								<TimelineContent>{kwik.comment} BY  {kwik.user_name}</TimelineContent>
+							</TimelineItem>
 						);
-					}
-					else {
-					return (
-						<TimelineItem key = {kwik.id}>
-        					<TimelineSeparator>
-          					<TimelineDot />
-          					<TimelineConnector />
-        					</TimelineSeparator>
-        					<TimelineContent>{kwik.comment}</TimelineContent>
-      					</TimelineItem>
-					);
-					}
 				})};
     		</Timeline>
 

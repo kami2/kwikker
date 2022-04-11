@@ -23,14 +23,15 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export function CreateKwik(props) {
+export function AddComment(props) {
     const classes = useStyles();
     const token = localStorage.getItem('access_token');
     const getUserName = jwt_decode(token)
 
     const initialFormData = {
+        kwik: props.kwikId,
         user: getUserName.user_id,
-		content: '',
+		comment: '',
 	};
 
     
@@ -46,14 +47,16 @@ export function CreateKwik(props) {
 	const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
+        console.log(props);
 
 		axiosInstance
-			.post(`kwik/create/`, {
+			.post(`kwik/create/comment/`, {
+                kwik: formData.kwik,
                 user: formData.user,
-                content: formData.content
+                comment: formData.comment
 			})
 			.then((res) => {
-				props.forSubmit();
+				props.kwikId();
 			});
     };
     
@@ -63,12 +66,12 @@ export function CreateKwik(props) {
         <div>
             <TextField
             id="outlined-multiline-static"
-            label="Add Kwik"
+            label="Add Comment"
             multiline
             rows={4}
             defaultValue="Default Value"
             variant="outlined"
-            name="content"
+            name="comment"
             onChange={handleChange}
             />
         </div>

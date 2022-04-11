@@ -4,9 +4,11 @@ from django.conf import settings
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    user_name = serializers.ReadOnlyField(source='user.user_name')
+
     class Meta:
         model = CommentKwik
-        fields = ['id', 'kwik', 'user', 'comment', 'comment_date']
+        fields = ['id', 'kwik', 'user', 'user_name', 'comment', 'comment_date']
 
 
 class DetailKwikSerializer(serializers.ModelSerializer):
