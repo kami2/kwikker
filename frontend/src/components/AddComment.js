@@ -47,7 +47,6 @@ export function AddComment(props) {
 	const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
-        console.log(props);
 
 		axiosInstance
 			.post(`kwik/create/comment/`, {
@@ -56,7 +55,7 @@ export function AddComment(props) {
                 comment: formData.comment
 			})
 			.then((res) => {
-				props.kwikId();
+                props.load();
 			});
     };
     

@@ -66,7 +66,7 @@ export default function Single() {
 				</Container>
 			</div>
 
-			{ axiosInstance.defaults.headers['Authorization'] ? <AddComment kwikId={data.kwiks.id} />: ''}
+			{ axiosInstance.defaults.headers['Authorization'] ? <AddComment load={loadData} kwikId={id} /> : ''}
 
 			<Timeline>
 				{data.kwiks.comment?.map((kwik, i, { length }) => {
