@@ -67,7 +67,7 @@ class CreateKwik(generics.CreateAPIView):
 
 
 class DeleteKwik(generics.RetrieveDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
 

@@ -1,5 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import { DeleteKwik } from './DeleteKwik';
+
+import axiosInstance from '../axios';
+import jwt_decode from 'jwt-decode'
+
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -37,9 +43,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Kwiks = (props) => {
+
 	const { kwiks } = props;
 	const classes = useStyles();
-	
+	const token = localStorage.getItem('access_token')
+	const getUserName = jwt_decode(token)
+
+
+
 	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
 	return (
 		<React.Fragment>
@@ -50,11 +61,13 @@ const Kwiks = (props) => {
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={kwik.id} xs={8} md={8}>
 								<Card className={classes.card}>
-									<CardMedia
-										className={classes.cardMedia}
-										image="https://source.unsplash.com/random"
-										title="Image title"
-									/>
+									<Link to={`/${kwik.id}`}>
+										<CardMedia
+											className={classes.cardMedia}
+											image="https://source.unsplash.com/random"
+											title="Image title"
+										/>
+									</Link>
 									<CardContent className={classes.cardContent}>
 										<Typography
 											gutterBottom
@@ -72,12 +85,10 @@ const Kwiks = (props) => {
 										>
 											{kwik.user_name}
 										</Typography>
-										<div className={classes.kwikText}>
-											<Typography
-												component="p"
-												color="textPrimary"
-											></Typography>
-										</div>
+										{getUserName.user_id === kwik.user ?
+											<div className={classes.kwikText}>
+												<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />
+											</div>: ""}
 									</CardContent>
 								</Card>
 							</Grid>

@@ -13,5 +13,5 @@ urlpatterns = [
     path('search/', KwikDetailFilter.as_view(), name='kwik_search'),
     path('kwik/create/', CreateKwik.as_view(), name='kwik_create'),
     path('kwik/create/comment/', AddComment.as_view(), name='kwik_create'),
-    path('kwik/<int:pk>/', DeleteKwik.as_view(), name='kwik_delete'),
+    path('kwik/delete/<int:pk>/', DeleteKwik.as_view(), name='kwik_delete'),
 ]

@@ -30,7 +30,7 @@ function App() {
             <div className="App">
                 { axiosInstance.defaults.headers['Authorization'] ? <CreateKwik forSubmit= {loadData} />: ''}
                 <h1>Latest Kwiks</h1>
-                {appState.loading?<KwikLoading />:<Kwik kwiks={appState.kwiks} />}
+                {appState.loading?<KwikLoading />:<Kwik reLoad={loadData} kwiks={appState.kwiks} />}
             </div>
         );
 }
