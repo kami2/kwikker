@@ -3,7 +3,7 @@ import './App.css';
 import Kwik from './components/Kwik';
 import { KwikLoading } from './components/KwikLoading';
 import { CreateKwik } from './components/CreateKwik';
-import axiosInstance from './axios';
+import {isLoggedIn} from './helpers/login-helpers';
 
 function App() {
         const [appState, setAppState] = useState({
@@ -28,7 +28,7 @@ function App() {
         useEffect(loadData, [setAppState]);
         return (
             <div className="App">
-                { axiosInstance.defaults.headers['Authorization'] ? <CreateKwik forSubmit= {loadData} />: ''}
+                { isLoggedIn() ? <CreateKwik forSubmit= {loadData} />: null}
                 <h1>Latest Kwiks</h1>
                 {appState.loading?<KwikLoading />:<Kwik reLoad={loadData} kwiks={appState.kwiks} />}
             </div>

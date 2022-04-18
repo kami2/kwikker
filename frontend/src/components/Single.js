@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import { AddComment } from './AddComment';
+
 //MaterialUI
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,14 +32,16 @@ export default function Single() {
 
 	const [data, setData] = useState({ kwiks: [] });
 
-	const loadData = () => {
+	const loadData = React.useCallback(() => {
 		axiosInstance.get(id).then((res) => {
 			setData({ kwiks: res.data });
 			console.log(res.data);
 		});
-	}
+	},[id])
 
-	useEffect(loadData, [setData]);
+	useEffect(()=> {
+		loadData()
+	}, [loadData]);
 
 	return (
 		<Container component="main" maxWidth="md">
@@ -66,7 +69,7 @@ export default function Single() {
 				</Container>
 			</div>
 
-			{ axiosInstance.defaults.headers['Authorization'] ? <AddComment load={loadData} kwikId={id} /> : ''}
+			{ false ? <AddComment load={loadData} kwikId={id} /> : null}
 
 			<Timeline>
 				{data.kwiks.comment?.map((kwik, i, { length }) => {

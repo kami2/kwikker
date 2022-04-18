@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { DeleteKwik } from './DeleteKwik';
 
-import axiosInstance from '../axios';
 import jwt_decode from 'jwt-decode'
 
 
@@ -47,13 +46,12 @@ const Kwiks = (props) => {
 	const { kwiks } = props;
 	const classes = useStyles();
 	const token = localStorage.getItem('access_token')
-	const getUserName = jwt_decode(token)
+	const getUserName = token ? jwt_decode(token) : undefined;
 
 
 
 	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
 	return (
-		<React.Fragment>
 			<Container maxWidth="md" component="main">
 				<Grid container justifyContent="center" spacing={4} alignItems="center">
 					{kwiks.map((kwik) => {
@@ -85,10 +83,10 @@ const Kwiks = (props) => {
 										>
 											{kwik.user_name}
 										</Typography>
-										{getUserName.user_id === kwik.user ?
+										{getUserName?.user_id === kwik.user ?
 											<div className={classes.kwikText}>
 												<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />
-											</div>: ""}
+											</div>: null}
 									</CardContent>
 								</Card>
 							</Grid>
@@ -96,7 +94,6 @@ const Kwiks = (props) => {
 					})}
 				</Grid>
 			</Container>
-		</React.Fragment>
 	);
 };
 export default Kwiks;
