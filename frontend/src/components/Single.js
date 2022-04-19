@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import { AddComment } from './AddComment';
+import {isLoggedIn} from '../helpers/login-helpers';
 
 //MaterialUI
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -69,7 +70,7 @@ export default function Single() {
 				</Container>
 			</div>
 
-			{ false ? <AddComment load={loadData} kwikId={id} /> : null}
+			{ isLoggedIn ? <AddComment load={loadData} kwikId={id} /> : null}
 
 			<Timeline>
 				{data.kwiks.comment?.map((kwik, i, { length }) => {
@@ -82,7 +83,7 @@ export default function Single() {
 								<TimelineContent>{kwik.comment} BY  {kwik.user_name}</TimelineContent>
 							</TimelineItem>
 						);
-				})};
+				})}
     		</Timeline>
 
 
