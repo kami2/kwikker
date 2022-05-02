@@ -3,6 +3,7 @@ import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import { AddComment } from './AddComment';
 import {isLoggedIn} from '../helpers/login-helpers';
+import { Link } from 'react-router-dom';
 
 //MaterialUI
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -34,7 +35,7 @@ export default function Single() {
 	const [data, setData] = useState({ kwiks: [] });
 
 	const loadData = React.useCallback(() => {
-		axiosInstance.get(id).then((res) => {
+		axiosInstance.get(`kwik/${id}`).then((res) => {
 			setData({ kwiks: res.data });
 			console.log(res.data);
 		});
@@ -65,12 +66,12 @@ export default function Single() {
 						color="textSecondary"
 						paragraph
 					>
-						{data.kwiks.user}
+						<Link to={`/profile/${data.kwiks.user}`}>{data.kwiks.user_name}</Link>
 					</Typography>
 				</Container>
 			</div>
 
-			{ isLoggedIn ? <AddComment load={loadData} kwikId={id} /> : null}
+			{ isLoggedIn() ? <AddComment load={loadData} kwikId={id} /> : null}
 
 			<Timeline>
 				{data.kwiks.comment?.map((kwik, i, { length }) => {

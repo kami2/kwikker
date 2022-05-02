@@ -59,7 +59,7 @@ const Kwiks = (props) => {
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={kwik.id} xs={8} md={8}>
 								<Card className={classes.card}>
-									<Link to={`/${kwik.id}`}>
+									<Link to={`kwik/${kwik.id}`}>
 										<CardMedia
 											className={classes.cardMedia}
 											image="https://source.unsplash.com/random"
@@ -81,7 +81,7 @@ const Kwiks = (props) => {
 											component="h2"
 											className={classes.kwikTitle}
 										>
-											{kwik.user_name}
+											<Link to={`profile/${kwik.user}`}>{kwik.user_name}</Link>
 										</Typography>
 										{getUserName?.user_id === kwik.user ?
 											<div className={classes.kwikText}>

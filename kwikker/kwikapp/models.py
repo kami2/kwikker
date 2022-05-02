@@ -60,6 +60,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
 
 
+
 class Kwik(models.Model):
     user = models.ForeignKey(NewUser, blank=True, null=True, on_delete=models.CASCADE)
     content = models.CharField(max_length=300)
@@ -79,6 +80,7 @@ class CommentKwik(models.Model):
         return str(self.comment)
 
 
-# Custom user model
+
+
 
 

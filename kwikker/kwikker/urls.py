@@ -32,7 +32,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
     path('api/', include('kwikapp.urls', namespace='kwikker')),
-    path('api/user/', include('kwikapp.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('docs/', include_docs_urls(title='KwikkerAPI')),
     path('schema/', get_schema_view(title="Kwikker", description='API for the Kwikker', version="1.0"), name='openapi-schema'),

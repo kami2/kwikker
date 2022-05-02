@@ -1,12 +1,14 @@
 from django.urls import path, include
-from .views import AddComment, KwikList, KwikDetail, CustomUserCreate, BlacklistTokenUpdateView, KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik
+from .views import UserDetail, AddComment, KwikList, KwikDetail, CustomUserCreate, BlacklistTokenUpdateView, KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik
 
 app_name='kwikapp'
 
 
 urlpatterns = [
-    path('<int:pk>/', KwikDetail.as_view(), name='detail_kwik'),
+    path('kwik/<int:pk>/', KwikDetail.as_view(), name='detail_kwik'),
     path('user/', KwikList.as_view(), name='kwik'),
+    path('profile/<int:pk>/', UserDetail.as_view(), name='profile'),
+
     path('', KwikListAll.as_view(), name='kwik_all'),
     path('register/', CustomUserCreate.as_view(), name='create_user'),
     path('logout/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),

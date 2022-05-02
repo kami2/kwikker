@@ -56,6 +56,7 @@ export function AddComment(props) {
             })
             .then((res) => {
                 props.load();
+                updateFormData(initialFormData);
             });
     };
 
@@ -68,7 +69,7 @@ export function AddComment(props) {
                     label="Add Comment"
                     multiline
                     rows={4}
-                    defaultValue="Default Value"
+                    placeholder="Add your comment"
                     variant="outlined"
                     name="comment"
                     onChange={handleChange}

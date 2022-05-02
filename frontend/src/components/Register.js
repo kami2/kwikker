@@ -41,7 +41,6 @@ export default function SignUp() {
 		username: '',
 		password: '',
 	});
-
 	const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {

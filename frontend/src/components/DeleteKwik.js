@@ -20,8 +20,8 @@ export function DeleteKwik(props) {
     const classes = useStyles();
 
     
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
         axiosInstance
             .delete(`kwik/delete/${props.toDelete}/`)

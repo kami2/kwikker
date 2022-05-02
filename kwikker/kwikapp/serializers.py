@@ -2,6 +2,12 @@ from rest_framework import serializers
 from kwikapp.models import Kwik, NewUser, CommentKwik
 from django.conf import settings
 
+class UserDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = NewUser
+        fields = ['id','user_name', 'first_name', 'about', 'start_date']
+
 
 class CommentSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
