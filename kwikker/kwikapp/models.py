@@ -1,9 +1,8 @@
-from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
 # Create your models here.
@@ -27,7 +26,6 @@ class CustomAccountManager(BaseUserManager):
 
     def create_user(self, email, user_name, first_name, password, **other_fields):
 
-
         if not email:
             raise ValueError(_('You must provide an email address'))
 
@@ -40,7 +38,6 @@ class CustomAccountManager(BaseUserManager):
 
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True)
@@ -55,10 +52,11 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'first_name']
 
+    def isFollowing(self, loginuserid):
+        return UserFollowing.objects.filter(user_id_id=loginuserid).filter(following_user_id_id=self.id).count() > 0
+
     def __str__(self):
         return self.user_name
-
-
 
 
 class Kwik(models.Model):
@@ -80,7 +78,17 @@ class CommentKwik(models.Model):
         return str(self.comment)
 
 
+class UserFollowing(models.Model):
+    user_id = models.ForeignKey(NewUser, related_name="following", on_delete=models.CASCADE)
+    following_user_id = models.ForeignKey(NewUser, related_name="followers", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user_id', 'following_user_id'], name="unique_followers")
+        ]
 
+        ordering = ["-created"]
 
-
+    def __str__(self):
+        return f"ID {self.id} {self.user_id} follows {self.following_user_id}"

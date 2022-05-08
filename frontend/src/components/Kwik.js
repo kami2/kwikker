@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { DeleteKwik } from './DeleteKwik';
 
-import jwt_decode from 'jwt-decode'
+import { currentUser } from '../helpers/login-helpers';
 
 
 import Card from '@material-ui/core/Card';
@@ -45,8 +45,7 @@ const Kwiks = (props) => {
 
 	const { kwiks } = props;
 	const classes = useStyles();
-	const token = localStorage.getItem('access_token')
-	const getUserName = token ? jwt_decode(token) : undefined;
+	const {id} = currentUser();
 
 
 
@@ -83,7 +82,7 @@ const Kwiks = (props) => {
 										>
 											<Link to={`profile/${kwik.user}`}>{kwik.user_name}</Link>
 										</Typography>
-										{getUserName?.user_id === kwik.user ?
+										{id === kwik.user ?
 											<div className={classes.kwikText}>
 												<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />
 											</div>: null}

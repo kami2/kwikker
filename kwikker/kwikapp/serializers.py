@@ -1,12 +1,18 @@
 from rest_framework import serializers
-from kwikapp.models import Kwik, NewUser, CommentKwik
+from kwikapp.models import Kwik, NewUser, CommentKwik, UserFollowing
 from django.conf import settings
 
+
 class UserDetailSerializer(serializers.ModelSerializer):
+    isfollowed = serializers.SerializerMethodField('followed')
+
+    def followed(self, profile):
+        loggeduser = self.context['request'].user.id
+        return profile.isFollowing(loggeduser)
 
     class Meta:
         model = NewUser
-        fields = ['id','user_name', 'first_name', 'about', 'start_date']
+        fields = ['id', 'user_name', 'first_name', 'about', 'isfollowed', 'start_date']
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -31,11 +37,16 @@ class KwikSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Kwik
-        fields = ('id','user', 'user_name', 'content', 'kwik_date')
+        fields = ('id', 'user', 'user_name', 'content', 'kwik_date')
+
+
+class FollowingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserFollowing
+        fields = ("id", "user_id", "following_user_id", "created")
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = NewUser
         fields = ('email', 'user_name', 'password')
@@ -50,9 +61,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return instance
 
 
-
 class UserRegisterSerializer(serializers.ModelSerializer):
-
     email = serializers.EmailField(required=True)
     username = serializers.CharField(required=True)
     password = serializers.CharField(min_length=8, write_only=True)
@@ -61,7 +70,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         model = settings.AUTH_USER_MODEL
         fields = ('email', 'user_name', 'first_name')
         extra_kwargs = {'password': {'write_only': True}}
-
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -82,5 +90,3 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
-
-

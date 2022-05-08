@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
-import jwt_decode from 'jwt-decode'
+import { currentUser } from '../helpers/login-helpers';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -25,12 +25,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function AddComment(props) {
     const classes = useStyles();
-    const token = localStorage.getItem('access_token');
-    const getUserName = jwt_decode(token)
+    const {id} = currentUser();
 
     const initialFormData = {
         kwik: props.kwikId,
-        user: getUserName.user_id,
+        user: id,
         comment: '',
     };
 

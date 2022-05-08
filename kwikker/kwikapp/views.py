@@ -1,31 +1,31 @@
-from rest_framework import generics, status, viewsets, filters
-from django.shortcuts import get_object_or_404
+from kwikapp.models import Kwik, CommentKwik, NewUser, UserFollowing
+from rest_framework import generics, status, filters
+from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticatedOrReadOnly, IsAuthenticated, \
+    AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from kwikapp.models import Kwik, CommentKwik, NewUser
-from .serializers import KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, UserDetailSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, DjangoModelPermissions, IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from .serializers import KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, \
+    UserDetailSerializer, FollowingSerializer
 
 
 class KwikUserWritePermission(BasePermission):
     message = 'Editing kwiks is restricted to the author only.'
 
-
     def has_object_permission(self, request, view, obj):
-
         if request.method in SAFE_METHODS:
             return True
 
         return obj.user == request.user
 
 
-
 class KwikListAll(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = KwikSerializer
     queryset = Kwik.objects.all().order_by('-kwik_date')
-
 
 
 class KwikList(generics.ListAPIView):
@@ -55,13 +55,11 @@ class KwikDetail(generics.RetrieveAPIView):
     serializer_class = DetailKwikSerializer
 
 
-
 class KwikDetailFilter(generics.ListAPIView):
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['^content']
-
 
 
 class CreateKwik(generics.CreateAPIView):
@@ -70,12 +68,27 @@ class CreateKwik(generics.CreateAPIView):
     serializer_class = KwikSerializer
 
 
-
 class DeleteKwik(generics.RetrieveDestroyAPIView):
     permission_classes = [KwikUserWritePermission]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
 
+
+class FollowProfile(generics.CreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = UserFollowing.objects.all()
+    serializer_class = FollowingSerializer
+
+
+class UnFollowProfile(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = UserFollowing.objects.all()
+    serializer_class = FollowingSerializer
+
+    def delete(self, request, pk):
+        follow_to_delete = UserFollowing.objects.filter(following_user_id=pk).filter(user_id_id=request.user.id)
+        follow_to_delete.delete()
+        return Response({"status": "ok"}, status=status.HTTP_200_OK)
 
 
 class CustomUserCreate(APIView):
@@ -89,7 +102,6 @@ class CustomUserCreate(APIView):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class BlacklistTokenUpdateView(APIView):
@@ -106,12 +118,6 @@ class BlacklistTokenUpdateView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-
-
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -123,6 +129,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
 
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
