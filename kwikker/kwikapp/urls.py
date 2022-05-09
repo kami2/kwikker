@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from .views import UserDetail, UnFollowProfile, FollowProfile, AddComment, KwikList, KwikDetail, CustomUserCreate, BlacklistTokenUpdateView, KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik
 
 app_name='kwikapp'

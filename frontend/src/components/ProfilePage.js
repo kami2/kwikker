@@ -48,7 +48,6 @@ export default function ProfilePage() {
     const classes = useStyles();
 
     const user = currentUser();
-
     
     const { id } = useParams();
     const [data, setData] = useState({ user: [] });
