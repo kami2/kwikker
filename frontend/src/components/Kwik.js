@@ -2,8 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { DeleteKwik } from './DeleteKwik';
+import { LikeKwik } from './LikeKwik';
 
-import { currentUser, isLoggedIn } from '../helpers/login-helpers';
+import { currentUser } from '../helpers/login-helpers';
 
 
 import Card from '@material-ui/core/Card';
@@ -19,17 +20,19 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		marginTop: 10
 	},
-	cardMedia: {
-		paddingTop: '56.25%', // 16:9
-	},
 	link: {
-		margin: theme.spacing(1, 1.5),
+		textDecoration: "none",
+		color: '#2c7a94',
+		fontWeight: 'bold',
+		fontSize: '16px',
 	},
 	image: {
+		marginTop: -8,
 		height: 150,
 	},
 	kwikTitle: {
@@ -38,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	kwikText: {
 		justifyContent: 'left',
-		fontSize: '16px',
+		fontSize: '14px',
 		textAlign: 'left',
-		marginBottom: theme.spacing(2),
+		wordWrap: "break-word",
+		marginBottom: -10,
 	},
 }));
 
@@ -55,47 +59,41 @@ const Kwiks = (props) => {
 	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
 	return (
 		<Container maxWidth="md" component="main">
-			<Grid container justifyContent="center" spacing={1} className={classes.root}>
+			<Grid container justifyContent="center" spacing={2} className={classes.root}>
 				{kwiks.map((kwik) => {
 					return (
 						// Enterprise card is full width at sm breakpoint
 						<Grid item key={kwik.id} xs={7} md={7}>
 							<Card className={classes.card}>
 								<CardHeader className={classes.kwikTitle}
-									avatar={
+									avatar={<Link to={`profile/${kwik.user}`}>
 										<Avatar aria-label="recipe" className={classes.avatar}>
-											<img src='https://picsum.photos/200' />
+											<img src='https://picsum.photos/200' alt="avatar" />
 										</Avatar>
+									</Link>
 									}
+									title={<Link to={`profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>}
+									subheader={kwik.kwik_date}
 									action={String(id) === String(kwik.user) ?
 										<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />
-										: null}
-									title={kwik.user_name}
-									subheader={kwik.kwik_date}
+										: <LikeKwik />}
 								/>
 								<Link to={`kwik/${kwik.id}`}>
 									<CardMedia
 										className={classes.image}
 										image="https://source.unsplash.com/random"
-										title="Image title"
+										alt="placeholder"
 									/>
 								</Link>
-								<CardContent className={classes.cardContent}>
+								<CardContent>
 									<Typography
 										gutterBottom
 										variant="h6"
 										component="h2"
+										display="block"
 										className={classes.kwikText}
 									>
 										{kwik.content}
-									</Typography>
-									<Typography
-										gutterBottom
-										variant="h6"
-										component="h2"
-										className={classes.kwikTitle}
-									>
-										<Link to={`profile/${kwik.user}`}>{kwik.user_name}</Link>
 									</Typography>
 								</CardContent>
 							</Card>

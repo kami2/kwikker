@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
 }));
 
 export default function FollowProfile(props) {

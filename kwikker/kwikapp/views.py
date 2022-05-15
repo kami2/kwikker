@@ -9,7 +9,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .serializers import KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, \
+from .serializers import CreateKwikSerializer, KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, \
     UserDetailSerializer, FollowingSerializer
 
 
@@ -67,7 +67,7 @@ class KwikDetailFilter(generics.ListAPIView):
 class CreateKwik(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Kwik.objects.all()
-    serializer_class = KwikSerializer
+    serializer_class = CreateKwikSerializer
 
 
 class DeleteKwik(generics.RetrieveDestroyAPIView):

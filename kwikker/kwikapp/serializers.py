@@ -33,6 +33,14 @@ class DetailKwikSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'user_name', 'content', 'comment')
 
 
+class CreateKwikSerializer(serializers.ModelSerializer):
+    user_name = serializers.ReadOnlyField(source='user.user_name')
+
+    class Meta:
+        model = Kwik
+        fields = ('id', 'user', 'user_name', 'content', 'kwik_date')
+
+
 class KwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
     kwik_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
