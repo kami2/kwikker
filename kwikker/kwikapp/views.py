@@ -35,6 +35,7 @@ class KwikList(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.query_params.get('user', None)
+        print(user)
         return Kwik.objects.filter(user=user)
 
 

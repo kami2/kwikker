@@ -29,7 +29,6 @@ function App() {
         return (
             <div className="App">
                 { isLoggedIn() ? <CreateKwik forSubmit= {loadData} />: null}
-                <h1>Latest Kwiks</h1>
                 {appState.loading?<KwikLoading />:<Kwik reLoad={loadData} kwiks={appState.kwiks} />}
             </div>
         );

@@ -5,6 +5,7 @@ from django.conf import settings
 
 class UserDetailSerializer(serializers.ModelSerializer):
     isfollowed = serializers.SerializerMethodField('followed')
+    start_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
 
     def followed(self, profile):
         loggeduser = self.context['request'].user.id
@@ -34,6 +35,7 @@ class DetailKwikSerializer(serializers.ModelSerializer):
 
 class KwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
+    kwik_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
 
     class Meta:
         model = Kwik

@@ -5,11 +5,11 @@ import HomeIcon from '@material-ui/icons/Home';
 
 import { Link } from 'react-router-dom';
 
+
+
 export function LogoutButton() {
     return (
-        <Tooltip title="Logout">
             <Link to='/logout'><IconButton><RemoveFromQueueSharpIcon /></IconButton></Link>
-        </Tooltip>
     );
 }
 
