@@ -67,7 +67,7 @@ export default function SignIn() {
 					'JWT ' + localStorage.getItem('access_token');
 				history('/');
 				//console.log(res);
-				console.log(res.data.access); 
+				// console.log(res.data.access); 
 			});
 	};
 

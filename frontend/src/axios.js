@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 			: null,
 		'Content-Type': 'application/json',
 		accept: 'application/json',
-	}, 
+	},
 });
 
 axiosInstance.interceptors.response.use(
@@ -24,8 +24,8 @@ axiosInstance.interceptors.response.use(
 		if (typeof error.response === 'undefined') {
 			alert(
 				'A server/network error occurred. ' +
-					'Looks like CORS might be the problem. ' +
-					'Sorry about this - we will get it fixed shortly.'
+				'Looks like CORS might be the problem. ' +
+				'Sorry about this - we will get it fixed shortly.'
 			);
 			return Promise.reject(error);
 		}
