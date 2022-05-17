@@ -38,7 +38,7 @@ export default function Header() {
 				</Grid>
 
 				<Grid item xs>
-					<Link to="/"><img src={process.env.PUBLIC_URL + logo} alt="Logo" /></Link>
+					<Link to="/home"><img src={process.env.PUBLIC_URL + logo} alt="Logo" /></Link>
 				</Grid>
 
 				<Grid item xs className={classes.logout}>

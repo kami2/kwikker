@@ -14,17 +14,18 @@ import reportWebVitals from './reportWebVitals';
 
 
 
+
 const routing = (
   <BrowserRouter basename='/'>
     <React.StrictMode>
       <Header />
       <Routes>
-          <Route exact path='/' element={<App />} />
-          <Route exact path='/kwik/:id' element={<Single />} />
-          <Route exact path='/profile/:id' element={<ProfilePage />} />
-          <Route exact path='/register' element={<Register />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route exact path='/logout' element={<Logout />} />
+        <Route exact path='/home' element={<App />} />
+        <Route exact path='/kwik/:id' element={<Single />} />
+        <Route exact path='/profile/:id' element={<ProfilePage />} />
+        <Route exact path='/register' element={<Register />} />
+        <Route exact path='/' element={<Login />} />
+        <Route exact path='/logout' element={<Logout />} />
       </Routes>
       <Footer />
     </React.StrictMode>

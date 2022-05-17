@@ -18,7 +18,7 @@ function Footer() {
 		<div className={classes.footer}>
 		<Typography variant="body2" color="textSecondary" align="center">
 			{'Copyright © '}
-			<Link color="inherit" href="https://material-ui.com/">
+			<Link color="inherit" href="https://github.com/kami2/">
 				Kwikker
 			</Link>{' '}
 			{new Date().getFullYear()}

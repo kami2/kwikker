@@ -5,7 +5,9 @@ import { currentUser } from '../helpers/login-helpers';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
+import { InputAdornment } from '@material-ui/core';
 
 
 
@@ -14,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '70ch',
+            width: '60ch',
         },
         button: {
             margin: theme.spacing(1),
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function AddComment(props) {
     const classes = useStyles();
-    const {id} = currentUser();
+    const { id } = currentUser();
 
     const initialFormData = {
         kwik: props.kwikId,
@@ -67,20 +69,20 @@ export function AddComment(props) {
                     id="outlined-multiline-static"
                     label="Add Comment"
                     multiline
-                    rows={4}
-                    placeholder="Add your comment"
-                    variant="outlined"
+                    variant="filled"
                     name="comment"
+                    inputProps={{ maxLength: 300 }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton type='submit' edge='end' color="primary" aria-label="add to shopping cart">
+                                    <QueuePlayNextIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                     onChange={handleChange}
                 />
-            </div>
-            <div>
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                >Send</Button>
             </div>
         </form>
     );

@@ -66,19 +66,19 @@ const Kwiks = (props) => {
 						<Grid item key={kwik.id} xs={7} md={7}>
 							<Card className={classes.card}>
 								<CardHeader className={classes.kwikTitle}
-									avatar={<Link to={`profile/${kwik.user}`}>
+									avatar={<Link to={`/profile/${kwik.user}`}>
 										<Avatar aria-label="recipe" className={classes.avatar}>
 											<img src='https://picsum.photos/200' alt="avatar" />
 										</Avatar>
 									</Link>
 									}
-									title={<Link to={`profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>}
+									title={<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>}
 									subheader={kwik.kwik_date}
 									action={String(id) === String(kwik.user) ?
 										<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />
 										: <LikeKwik />}
 								/>
-								<Link to={`kwik/${kwik.id}`}>
+								<Link to={`/kwik/${kwik.id}`}>
 									<CardMedia
 										className={classes.image}
 										image="https://source.unsplash.com/random"

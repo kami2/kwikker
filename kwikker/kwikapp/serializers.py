@@ -27,10 +27,11 @@ class CommentSerializer(serializers.ModelSerializer):
 class DetailKwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
     comment = CommentSerializer(many=True, read_only=True)
+    kwik_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
 
     class Meta:
         model = Kwik
-        fields = ('id', 'user', 'user_name', 'content', 'comment')
+        fields = ('id', 'user', 'user_name','kwik_date', 'content', 'comment')
 
 
 class CreateKwikSerializer(serializers.ModelSerializer):

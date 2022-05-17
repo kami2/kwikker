@@ -6,7 +6,6 @@ import { isLoggedIn } from '../helpers/login-helpers';
 import { Link } from 'react-router-dom';
 
 //MaterialUI
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -18,17 +17,51 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
+
+
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+
+import { DeleteKwik } from './DeleteKwik';
+import { LikeKwik } from './LikeKwik';
+
+
 
 const useStyles = makeStyles((theme) => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
+	root: {
+		marginTop: 10
 	},
+	link: {
+		textDecoration: "none",
+		color: '#2c7a94',
+		fontWeight: 'bold',
+		fontSize: '16px',
+	},
+	image: {
+		marginTop: -8,
+		height: 150,
+	},
+	kwikTitle: {
+		fontSize: '16px',
+		textAlign: 'left',
+	},
+	kwikText: {
+		justifyContent: 'left',
+		fontSize: '14px',
+		textAlign: 'left',
+		wordWrap: "break-word",
+		marginBottom: -10,
+	},
+	addcomment: {
+		textAlign: 'center',
+	}
 }));
 
-export default function Single() {
+export default function Single(props) {
 	const { id } = useParams();
 	const classes = useStyles();
 
@@ -39,53 +72,69 @@ export default function Single() {
 			setData({ kwiks: res.data });
 			console.log(res.data);
 		});
-	},[id])
+	}, [id])
 
-	useEffect(()=> {
+	useEffect(() => {
 		loadData()
 	}, [loadData]);
 
 	return (
-		<Container component="main" maxWidth="md">
-			<CssBaseline />
-			<div className={classes.paper}></div>
-			<div className={classes.heroContent}>
-				<Container maxWidth="sm">
-					<Typography
-						component="h1"
-						variant="h2"
-						align="center"
-						color="textPrimary"
-						gutterBottom
-					>
-						{data.kwiks.content}
-					</Typography>
-					<Typography
-						variant="h5"
-						align="center"
-						color="textSecondary"
-						paragraph
-					>
-						<Link to={`/profile/${data.kwiks.user}`}>{data.kwiks.user_name}</Link>
-					</Typography>
-				</Container>
-			</div>
+		<Container maxWidth="md" component="main">
+			<Grid container justifyContent="center" spacing={2} className={classes.root}>
+				<Grid item xs={7} md={7}>
+					<Card className={classes.card}>
+						<CardHeader className={classes.kwikTitle}
+							avatar={<Link to={`/profile/${data.kwiks.user}`}>
+								<Avatar aria-label="recipe" className={classes.avatar}>
+									<img src='https://picsum.photos/200' alt="avatar" />
+								</Avatar>
+							</Link>
+							}
+							title={<Link to={`/profile/${data.kwiks.user}`} className={classes.link}>{data.kwiks.user_name}</Link>}
+							subheader={data.kwiks.kwik_date}
+							action={String(id) === String(data.kwiks.user) ?
+								<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />
+								: <LikeKwik />}
+						/>
+						<Link to={`/kwik/${data.kwiks.id}`}>
+							<CardMedia
+								className={classes.image}
+								image="https://source.unsplash.com/random"
+								alt="placeholder"
+							/>
+						</Link>
+						<CardContent>
+							<Typography
+								gutterBottom
+								variant="h6"
+								component="h2"
+								display="block"
+								className={classes.kwikText}
+							>
+								{data.kwiks.content}
+							</Typography>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
 
-			{ isLoggedIn() ? <AddComment load={loadData} kwikId={id} /> : null}
+			<div className={classes.addcomment}>
+				{isLoggedIn() ? <AddComment load={loadData} kwikId={id} /> : null}
+			</div>
 
 			<Timeline>
 				{data.kwiks.comment?.map((kwik, i, { length }) => {
-						return (
-							<TimelineItem key={kwik.id}>
-								<TimelineSeparator>
-									<TimelineDot />
-								{length -1 === i ? null : <TimelineConnector />}
-								</TimelineSeparator>
-								<TimelineContent>{kwik.comment} BY  {kwik.user_name}</TimelineContent>
-							</TimelineItem>
-						);
+					return (
+						<TimelineItem key={kwik.id}>
+							<TimelineSeparator>
+								<TimelineDot />
+								{length - 1 === i ? null : <TimelineConnector />}
+							</TimelineSeparator>
+							<TimelineContent>{kwik.comment} BY  {kwik.user_name}</TimelineContent>
+						</TimelineItem>
+					);
 				})}
-    		</Timeline>
+			</Timeline>
 
 
 		</Container>
