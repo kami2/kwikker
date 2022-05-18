@@ -15,7 +15,7 @@ import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
-import TimelineDot from '@material-ui/lab/TimelineDot';
+import { TimelineOppositeContent } from '@material-ui/lab';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -58,6 +58,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 	addcomment: {
 		textAlign: 'center',
+	},
+	comment_author: {
+		marginTop: -11,
+		marginLeft: -7,
+	},
+	comment_content: {
+		wordWrap: "break-word",
+		marginTop: -4,
+		marginLeft: -7,
+		marginBottom: 10,
+	},
+	separator: {
 	}
 }));
 
@@ -82,7 +94,7 @@ export default function Single(props) {
 		<Container maxWidth="md" component="main">
 			<Grid container justifyContent="center" spacing={2} className={classes.root}>
 				<Grid item xs={7} md={7}>
-					<Card className={classes.card}>
+					<Card>
 						<CardHeader className={classes.kwikTitle}
 							avatar={<Link to={`/profile/${data.kwiks.user}`}>
 								<Avatar aria-label="recipe" className={classes.avatar}>
@@ -113,6 +125,7 @@ export default function Single(props) {
 							>
 								{data.kwiks.content}
 							</Typography>
+
 						</CardContent>
 					</Card>
 				</Grid>
@@ -122,19 +135,39 @@ export default function Single(props) {
 				{isLoggedIn() ? <AddComment load={loadData} kwikId={id} /> : null}
 			</div>
 
-			<Timeline>
-				{data.kwiks.comment?.map((kwik, i, { length }) => {
-					return (
-						<TimelineItem key={kwik.id}>
-							<TimelineSeparator>
-								<TimelineDot />
-								{length - 1 === i ? null : <TimelineConnector />}
-							</TimelineSeparator>
-							<TimelineContent>{kwik.comment} BY  {kwik.user_name}</TimelineContent>
-						</TimelineItem>
-					);
-				})}
-			</Timeline>
+			<Grid container justifyContent="center" spacing={2}>
+				<Grid item xs={7} md={7}>
+					<Card className={classes.comments}>
+						<CardContent>
+							<Typography variant="h6">Comments</Typography>
+							<Timeline>
+								{data.kwiks.comment?.map((kwik, i, { length }) => {
+									return (
+										<TimelineItem key={kwik.id}>
+											<TimelineOppositeContent style={{ display: 'none' }} />
+											<TimelineSeparator className={classes.separator}>
+												<Avatar aria-label="recipe">
+													<img src='https://picsum.photos/200' alt="avatar" />
+												</Avatar>
+												{length - 1 === i ? null : <TimelineConnector />}
+											</TimelineSeparator>
+											<TimelineContent>
+												<Typography variant="subtitle1" className={classes.comment_author}>
+													{i + 1}#  {kwik.user_name} - {kwik.comment_date}
+												</Typography>
+												<Typography variant="subtitle2" display="block" className={classes.comment_content}>
+													{kwik.comment}
+												</Typography>
+											</TimelineContent>
+										</TimelineItem>
+									);
+								})}
+							</Timeline>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
+
 
 
 		</Container>

@@ -18,6 +18,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
+    comment_date = serializers.DateTimeField(format="%B %d, %Y")
 
     class Meta:
         model = CommentKwik
