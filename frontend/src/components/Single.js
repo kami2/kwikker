@@ -64,10 +64,10 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: -7,
 	},
 	comment_content: {
-		wordWrap: "break-word",
 		marginTop: -4,
 		marginLeft: -7,
 		marginBottom: 10,
+		overflowWrap: 'anywhere',
 	},
 	separator: {
 	}
