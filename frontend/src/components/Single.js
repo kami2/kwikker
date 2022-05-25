@@ -33,7 +33,7 @@ import { LikeKwik } from './LikeKwik';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: 10
+		marginTop: 10,
 	},
 	link: {
 		textDecoration: "none",
@@ -59,9 +59,16 @@ const useStyles = makeStyles((theme) => ({
 	addcomment: {
 		textAlign: 'center',
 	},
-	comment_author: {
+	comment_header: {
 		marginTop: -11,
 		marginLeft: -7,
+	},
+	comment_author: {
+		fontWeight: 'bold',
+	},
+	comment_date: {
+		fontFamily: 'Trebuchet MS',
+		fontSize: 14,
 	},
 	comment_content: {
 		marginTop: -4,
@@ -69,8 +76,15 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: 10,
 		overflowWrap: 'anywhere',
 	},
-	separator: {
-	}
+	comments: {
+		paddingTop: 5,
+		paddingLeft: 10,
+		paddingBottom: 0,
+	},
+	be_first: {
+		textAlign: "center",
+		paddingTop: 10,
+	},
 }));
 
 export default function Single(props) {
@@ -104,9 +118,8 @@ export default function Single(props) {
 							}
 							title={<Link to={`/profile/${data.kwiks.user}`} className={classes.link}>{data.kwiks.user_name}</Link>}
 							subheader={data.kwiks.kwik_date}
-							action={String(id) === String(data.kwiks.user) ?
-								<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />
-								: <LikeKwik />}
+							action={String(id) === String(data.kwiks.user) &&
+								<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />}
 						/>
 						<Link to={`/kwik/${data.kwiks.id}`}>
 							<CardMedia
@@ -138,32 +151,34 @@ export default function Single(props) {
 			<Grid container justifyContent="center" spacing={2}>
 				<Grid item xs={7} md={7}>
 					<Card className={classes.comments}>
-						<CardContent>
-							<Typography variant="h6">Comments</Typography>
-							<Timeline>
-								{data.kwiks.comment?.map((kwik, i, { length }) => {
-									return (
-										<TimelineItem key={kwik.id}>
-											<TimelineOppositeContent style={{ display: 'none' }} />
-											<TimelineSeparator className={classes.separator}>
-												<Avatar aria-label="recipe">
-													<img src='https://picsum.photos/200' alt="avatar" />
-												</Avatar>
-												{length - 1 === i ? null : <TimelineConnector />}
-											</TimelineSeparator>
-											<TimelineContent>
-												<Typography variant="subtitle1" className={classes.comment_author}>
-													{i + 1}#  {kwik.user_name} - {kwik.comment_date}
-												</Typography>
-												<Typography variant="subtitle2" display="block" className={classes.comment_content}>
-													{kwik.comment}
-												</Typography>
-											</TimelineContent>
-										</TimelineItem>
-									);
-								})}
-							</Timeline>
-						</CardContent>
+						<Typography variant="h6">Comments</Typography>
+						{data.kwiks.comment?.length === 0  &&
+							<Typography className={classes.be_first}>Be the first to comment</Typography>}
+						<Timeline>
+							{data.kwiks.comment?.map((kwik, i, { length }) => {
+								return (
+									<TimelineItem key={kwik.id}>
+										<TimelineOppositeContent style={{ display: 'none' }} />
+										<TimelineSeparator>
+											<Avatar aria-label="recipe">
+												<img src='https://picsum.photos/200' alt="avatar" />
+											</Avatar>
+											{length - 1 === i ? null : <TimelineConnector />}
+										</TimelineSeparator>
+										<TimelineContent>
+											<Typography variant="subtitle1" className={classes.comment_header}>
+												<Typography display="inline" className={classes.comment_author}>
+												<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
+												</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}</Typography>
+											</Typography>
+											<Typography variant="subtitle1" display="block" className={classes.comment_content}>
+												{kwik.comment}
+											</Typography>
+										</TimelineContent>
+									</TimelineItem>
+								);
+							})}
+						</Timeline>
 					</Card>
 				</Grid>
 			</Grid>

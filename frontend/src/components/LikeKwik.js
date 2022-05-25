@@ -6,10 +6,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 
+import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(0),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(-2),
+      textAlign: 'left',
     },
   },
 }));
@@ -47,8 +51,8 @@ export function LikeKwik(props) {
 
   return (
     <div className={classes.root}>
-        <IconButton color={ props.isFollowed ? 'secondary': 'default'} type="submit" aria-label="follow">
-          <FavoriteIcon />
+        <IconButton type="submit" aria-label="follow">
+          <ThumbUpTwoToneIcon />
         </IconButton>
     </div>
   );

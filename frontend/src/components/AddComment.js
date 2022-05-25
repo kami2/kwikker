@@ -37,6 +37,8 @@ export function AddComment(props) {
 
 
     const [formData, updateFormData] = useState(initialFormData);
+    const [value, setValue] = useState();
+
 
     const handleChange = (e) => {
         updateFormData({
@@ -47,6 +49,8 @@ export function AddComment(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+
         console.log(formData);
 
         axiosInstance
@@ -58,6 +62,7 @@ export function AddComment(props) {
             .then((res) => {
                 props.load();
                 updateFormData(initialFormData);
+                setValue("");
             });
     };
 
@@ -81,6 +86,7 @@ export function AddComment(props) {
                             </InputAdornment>
                         ),
                     }}
+                    value={value}
                     onChange={handleChange}
                 />
             </div>

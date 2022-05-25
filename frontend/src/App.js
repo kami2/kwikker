@@ -4,6 +4,7 @@ import Kwik from './components/Kwik';
 import { KwikLoading } from './components/KwikLoading';
 import { CreateKwik } from './components/CreateKwik';
 import { isLoggedIn } from './helpers/login-helpers';
+import axiosInstance from './axios';
 
 
 
@@ -19,17 +20,10 @@ function App() {
 
     const loadData = () => {
         setAppState({ loading: true });
-        const apiUrl = 'api/';
-        fetch(apiUrl)
-            .then((data) => {
-                if (!data.ok) {
-                    throw new Error('Network response was not OK')
-                }
-                return data.json()
-            })
-            .then((kwiks) => {
-                console.log(kwiks)
-                setAppState({ loading: false, kwiks: kwiks });
+        axiosInstance.get('/')
+            .then((res) => {
+                console.log(res.data)
+                setAppState({ loading: false, kwiks: res.data });
             }).catch((error) => { console.log(error) });
 
     }

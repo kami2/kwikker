@@ -74,9 +74,8 @@ const Kwiks = (props) => {
 									}
 									title={<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>}
 									subheader={kwik.kwik_date}
-									action={String(id) === String(kwik.user) ?
-										<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />
-										: <LikeKwik />}
+									action={String(id) === String(kwik.user) &&
+										<DeleteKwik reFresh={props.reLoad} toDelete={kwik.id} />}
 								/>
 								<Link to={`/kwik/${kwik.id}`}>
 									<CardMedia
@@ -95,6 +94,7 @@ const Kwiks = (props) => {
 									>
 										{kwik.content}
 									</Typography>
+									<LikeKwik />
 								</CardContent>
 							</Card>
 						</Grid>

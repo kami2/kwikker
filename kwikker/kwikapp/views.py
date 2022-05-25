@@ -47,8 +47,8 @@ class AddComment(generics.CreateAPIView):
 
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
-    queryset = NewUser.objects.all()
     serializer_class = UserDetailSerializer
+    queryset = NewUser.objects.all()
 
 
 class KwikDetail(generics.RetrieveAPIView):

@@ -63,6 +63,13 @@ class Kwik(models.Model):
     user = models.ForeignKey(NewUser, blank=True, null=True, on_delete=models.CASCADE)
     content = models.CharField(max_length=300)
     kwik_date = models.DateTimeField(auto_now=True)
+    like = models.ManyToManyField(NewUser, blank=True, related_name='likes')
+
+    def countLikes(self):
+        return self.like.count()
+
+    def isLiked(self, loginuserid):
+        return Kwik.objects.filter(id=self.id).filter(like=loginuserid).count() > 0
 
     def __str__(self):
         return self.content

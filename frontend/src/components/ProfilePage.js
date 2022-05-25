@@ -75,10 +75,7 @@ export default function ProfilePage() {
                         R
                     </Avatar>
                 }
-                action={isFollowIconVisible ? <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} /> :
-                    <Fab disabled aria-label="like">
-                        <FavoriteIcon />
-                    </Fab>}
+                action={isFollowIconVisible && <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} />}
                 title={data.user.first_name}
                 subheader={data.user.start_date}
             />
