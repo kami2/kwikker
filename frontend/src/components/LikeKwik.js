@@ -25,33 +25,33 @@ export function LikeKwik(props) {
 
 
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (props.isFollowed) {
-//       axiosInstance
-//       .delete(`profile/${props.followThis}/unfollow`)
-//       .then((res) => {
-//         console.log('unfollowed')
-//         props.loadData();
-//       })
-//     } else {
-//       axiosInstance
-//       .post(`profile/${props.followThis}/follow`, {
-//         user_id: id,
-//         following_user_id: props.followThis
-//       })
-//       .then((res) => {
-//         console.log("followed")
-//         props.loadData();
-//       });
-//     }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (props.isLiked) {
+      axiosInstance
+      .delete(`kwik/${props.likeThis}/unlike/`)
+      .then((res) => {
+        console.log('unliked')
+        props.loadData();
+      })
+    } else {
+      axiosInstance
+      .post(`kwik/${props.likeThis}/like/`, {
+        user: id,
+        kwik: props.likeThis,
+      })
+      .then((res) => {
+        console.log("liked")
+        props.loadData();
+      });
+    }
     
-//   };
+  };
 
 
   return (
     <div className={classes.root}>
-        <IconButton type="submit" aria-label="follow">
+        <IconButton onClick={handleSubmit} type="submit" aria-label="like">
           <ThumbUpTwoToneIcon />
         </IconButton>
     </div>

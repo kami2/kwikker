@@ -94,7 +94,7 @@ const Kwiks = (props) => {
 									>
 										{kwik.content}
 									</Typography>
-									<LikeKwik />
+									<LikeKwik likeThis={kwik.id} isLiked={kwik.is_liked} />
 								</CardContent>
 							</Card>
 						</Grid>

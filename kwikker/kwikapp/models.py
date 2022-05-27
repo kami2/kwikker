@@ -63,13 +63,12 @@ class Kwik(models.Model):
     user = models.ForeignKey(NewUser, blank=True, null=True, on_delete=models.CASCADE)
     content = models.CharField(max_length=300)
     kwik_date = models.DateTimeField(auto_now=True)
-    like = models.ManyToManyField(NewUser, blank=True, related_name='likes')
-
-    def countLikes(self):
-        return self.like.count()
 
     def isLiked(self, loginuserid):
-        return Kwik.objects.filter(id=self.id).filter(like=loginuserid).count() > 0
+        return LikeKwik.objects.filter(user_id=loginuserid).filter(kwik_id=self.id).count() > 0
+
+    def countLikes(self):
+        return LikeKwik.objects.filter(kwik_id=self.id).count()
 
     def __str__(self):
         return self.content
@@ -83,6 +82,19 @@ class CommentKwik(models.Model):
 
     def __str__(self):
         return str(self.comment)
+
+
+class LikeKwik(models.Model):
+    kwik = models.ForeignKey(Kwik, on_delete=models.CASCADE, related_name='kwik')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['kwik', 'user'], name="unique_like")
+        ]
+
+    def __str__(self):
+        return f"{self.user} like kwik ID {self.kwik.id}"
 
 
 class UserFollowing(models.Model):

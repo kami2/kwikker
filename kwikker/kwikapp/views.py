@@ -1,4 +1,4 @@
-from kwikapp.models import Kwik, CommentKwik, NewUser, UserFollowing
+from kwikapp.models import Kwik, CommentKwik, NewUser, UserFollowing, LikeKwik
 from rest_framework import generics, status, filters
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticatedOrReadOnly, IsAuthenticated, \
     AllowAny
@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import CreateKwikSerializer, KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, \
-    UserDetailSerializer, FollowingSerializer
+    UserDetailSerializer, FollowingSerializer, LikeKwikSerializer
 
 
 class KwikUserWritePermission(BasePermission):
@@ -27,6 +27,12 @@ class KwikListAll(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = KwikSerializer
     queryset = Kwik.objects.all().order_by('-kwik_date')
+
+
+class LikeKwik(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = LikeKwik.objects.all()
+    serializer_class = LikeKwikSerializer
 
 
 class KwikList(generics.ListAPIView):

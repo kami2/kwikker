@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from kwikapp.models import Kwik, NewUser, CommentKwik, UserFollowing
+from kwikapp.models import Kwik, NewUser, CommentKwik, UserFollowing, LikeKwik
 from django.conf import settings
 
 
@@ -41,12 +41,21 @@ class CreateKwikSerializer(serializers.ModelSerializer):
     class Meta:
         model = Kwik
         fields = ('id', 'user', 'user_name', 'content', 'kwik_date')
+        extra_kwargs = {'user': {'required': True}}
+
+
+class LikeKwikSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LikeKwik
+        fields = ('id', 'user')
+
 
 
 class KwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
     kwik_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
-    isliked = serializers.SerializerMethodField("liked")
+    is_liked = serializers.SerializerMethodField("liked")
     countedlikes = serializers.SerializerMethodField("counted_likes")
 
     def counted_likes(self, kwik):
@@ -58,7 +67,7 @@ class KwikSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Kwik
-        fields = ('id', 'user', 'user_name', 'content', 'kwik_date', 'isliked', 'countedlikes')
+        fields = ('id', 'user', 'user_name', 'content', 'kwik_date', 'is_liked', 'countedlikes')
 
 
 class FollowingSerializer(serializers.ModelSerializer):
