@@ -54,13 +54,13 @@ export default function SignUp() {
 		console.log(formData);
 
 		axiosInstance
-			.post(`user/register/`, {
+			.post(`register/`, {
 				email: formData.email,
 				user_name: formData.username,
 				password: formData.password,
 			})
 			.then((res) => {
-				history('/login');
+				history('/');
 				console.log(res);
 				console.log(res.data);
 			});

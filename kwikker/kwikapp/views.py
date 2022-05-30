@@ -29,7 +29,18 @@ class KwikListAll(generics.ListAPIView):
     queryset = Kwik.objects.all().order_by('-kwik_date')
 
 
-class LikeKwik(generics.CreateAPIView):
+class UnLikeThisKwik(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = LikeKwik.objects.all()
+    serializer_class = LikeKwikSerializer
+
+    def delete(self, request, pk):
+        like_to_delete = LikeKwik.objects.filter(kwik_id=pk).filter(user_id=request.user.id)
+        like_to_delete.delete()
+        return Response({"status": "ok"}, status=status.HTTP_200_OK)
+
+
+class LikeThisKwik(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = LikeKwik.objects.all()
     serializer_class = LikeKwikSerializer

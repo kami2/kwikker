@@ -48,7 +48,7 @@ class LikeKwikSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LikeKwik
-        fields = ('id', 'user')
+        fields = ('kwik', 'user')
 
 
 

@@ -29,31 +29,24 @@ export function CreateKwik(props) {
   const token = localStorage.getItem('access_token');
   const getUserName = jwt_decode(token)
 
-  const initialFormData = {
-    user: getUserName.user_id,
-    content: '',
-  };
+  const [content, setContent] = useState('');
 
-
-  const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
-    updateFormData({
-      ...formData,
-      [e.target.name]: e.target.value.trim(),
-    });
+    setContent(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log(content);
 
     axiosInstance
       .post(`kwik/create/`, {
-        user: formData.user,
-        content: formData.content
+        user: getUserName.user_id,
+        content: content,
       })
       .then((res) => {
+        setContent('');
         props.forSubmit();
       });
   };
@@ -78,6 +71,7 @@ export function CreateKwik(props) {
               </InputAdornment>
             ),
           }}
+          value={content}
           onChange={handleChange}
         />
       </div>

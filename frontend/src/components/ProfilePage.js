@@ -13,8 +13,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 
-import Fab from '@material-ui/core/Fab';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 

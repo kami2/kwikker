@@ -85,8 +85,8 @@ class CommentKwik(models.Model):
 
 
 class LikeKwik(models.Model):
-    kwik = models.ForeignKey(Kwik, on_delete=models.CASCADE, related_name='kwik')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    kwik = models.ForeignKey(Kwik, on_delete=models.CASCADE, related_name='KwikToLike')
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='UserWhoLike')
 
     class Meta:
         constraints = [

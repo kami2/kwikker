@@ -3,17 +3,16 @@ import axiosInstance from '../axios';
 import { currentUser } from '../helpers/login-helpers';
 
 import { makeStyles } from '@material-ui/core/styles';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 
 import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(-2),
-      textAlign: 'left',
     },
   },
 }));
@@ -51,7 +50,7 @@ export function LikeKwik(props) {
 
   return (
     <div className={classes.root}>
-        <IconButton onClick={handleSubmit} type="submit" aria-label="like">
+        <IconButton onClick={handleSubmit} color={ props.isLiked ? 'primary': 'default'} type="submit" aria-label="like">
           <ThumbUpTwoToneIcon />
         </IconButton>
     </div>

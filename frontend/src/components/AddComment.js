@@ -29,40 +29,26 @@ export function AddComment(props) {
     const classes = useStyles();
     const { id } = currentUser();
 
-    const initialFormData = {
-        kwik: props.kwikId,
-        user: id,
-        comment: '',
-    };
 
-
-    const [formData, updateFormData] = useState(initialFormData);
-    const [value, setValue] = useState();
-
+    const [comment, setComment] = useState('');
 
     const handleChange = (e) => {
-        updateFormData({
-            ...formData,
-            [e.target.name]: e.target.value.trim(),
-        });
+        setComment(e.target.value)
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-
-        console.log(formData);
+        console.log(comment);
 
         axiosInstance
             .post(`kwik/create/comment/`, {
-                kwik: formData.kwik,
-                user: formData.user,
-                comment: formData.comment
+                kwik: props.kwikId,
+                user: id,
+                comment: comment,
             })
             .then((res) => {
+                setComment('');
                 props.load();
-                updateFormData(initialFormData);
-                setValue("");
             });
     };
 
@@ -86,7 +72,7 @@ export function AddComment(props) {
                             </InputAdornment>
                         ),
                     }}
-                    value={value}
+                    value={comment}
                     onChange={handleChange}
                 />
             </div>
