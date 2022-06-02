@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { currentUser } from '../helpers/login-helpers';
 
@@ -18,10 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function LikeKwik(props) {
+  
   const classes = useStyles();
-
-  const {id} = currentUser()
-
+  const {id} = currentUser();
 
 
   const handleSubmit = (e) => {
@@ -31,7 +30,7 @@ export function LikeKwik(props) {
       .delete(`kwik/${props.likeThis}/unlike/`)
       .then((res) => {
         console.log('unliked')
-        props.loadData();
+        props.reLoad();
       })
     } else {
       axiosInstance
@@ -41,7 +40,7 @@ export function LikeKwik(props) {
       })
       .then((res) => {
         console.log("liked")
-        props.loadData();
+        props.reLoad();
       });
     }
     

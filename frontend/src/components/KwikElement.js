@@ -50,12 +50,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function KwikElement(props) {
-
     const classes = useStyles();
-    const { id } = currentUser();
 
     return (
-        <Grid item key={props.id} xs={7} md={7}>
+        <Grid item xs={7} md={7}>
             <Card className={classes.card}>
                 <CardHeader className={classes.kwikTitle}
                     avatar={<Link to={`/profile/${props.user}`}>
@@ -66,8 +64,8 @@ export function KwikElement(props) {
                     }
                     title={<Link to={`/profile/${props.user}`} className={classes.link}>{props.user_name}</Link>}
                     subheader={props.kwik_date}
-                    action={String(id) === String(props.user) &&
-                        <DeleteKwik toDelete={props.id} />}
+                    action={String(props.logged_user) === String(props.user) &&
+                        <DeleteKwik reFresh={props.reLoad} toDelete={props.id} />}
                 />
                 <Link to={`/kwik/${props.id}`}>
                     <CardMedia
@@ -86,7 +84,7 @@ export function KwikElement(props) {
                     >
                         {props.content}
                     </Typography>
-                    <LikeKwik likeThis={props.id} isLiked={props.is_liked} />
+                    <LikeKwik reLoad={props.reLoad} likeThis={props.id} isLiked={props.is_liked}/>
                 </CardContent>
             </Card>
         </Grid>

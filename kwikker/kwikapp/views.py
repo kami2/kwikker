@@ -24,7 +24,7 @@ class KwikUserWritePermission(BasePermission):
 
 
 class KwikListAll(generics.ListAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = KwikSerializer
     queryset = Kwik.objects.all().order_by('-kwik_date')
 

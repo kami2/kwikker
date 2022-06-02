@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import { AddComment } from './AddComment';
-import { isLoggedIn } from '../helpers/login-helpers';
+import { currentUser, isLoggedIn } from '../helpers/login-helpers';
 import { Link } from 'react-router-dom';
 
 //MaterialUI
@@ -88,8 +88,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Single(props) {
+
 	const { id } = useParams();
 	const classes = useStyles();
+	const user = currentUser();
 
 	const [data, setData] = useState({ kwiks: [] });
 
@@ -118,7 +120,7 @@ export default function Single(props) {
 							}
 							title={<Link to={`/profile/${data.kwiks.user}`} className={classes.link}>{data.kwiks.user_name}</Link>}
 							subheader={data.kwiks.kwik_date}
-							action={String(id) === String(data.kwiks.user) &&
+							action={String(user.id) === String(data.kwiks.user) &&
 								<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />}
 						/>
 						<Link to={`/kwik/${data.kwiks.id}`}>

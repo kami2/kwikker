@@ -22,7 +22,6 @@ const Kwiks = (props) => {
 	const { id } = currentUser();
 
 
-
 	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
 	return (
 		<Container maxWidth="md" component="main">
@@ -31,12 +30,14 @@ const Kwiks = (props) => {
 					return (
 						<KwikElement
 							key={kwik.id}
+							logged_user={id}
 							id={kwik.id}
 							user={kwik.user}
 							user_name={kwik.user_name}
-							wik_date={kwik.kwik_date}
+							kwik_date={kwik.kwik_date}
 							content={kwik.content}
-							is_liked={kwik.is_liked} />
+							is_liked={kwik.is_liked}
+							reLoad={props.reLoad} />
 					);
 				})}
 			</Grid>
