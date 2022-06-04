@@ -54,7 +54,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['user_name', 'first_name']
 
     def save(self, *args, **kwargs):
-        self.avatar = f'https://i.pravatar.cc/150?u={self.user_name}'
+        self.avatar = f'https://i.pravatar.cc/50?u={self.user_name}'
         super().save(*args, **kwargs)
 
     def isFollowing(self, loginuserid):
@@ -74,6 +74,9 @@ class Kwik(models.Model):
 
     def countLikes(self):
         return LikeKwik.objects.filter(kwik_id=self.id).count()
+
+    def countComments(self):
+        return CommentKwik.objects.filter(kwik_id=self.id).count()
 
     def __str__(self):
         return self.content

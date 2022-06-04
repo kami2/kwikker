@@ -38,6 +38,8 @@ const Kwiks = (props) => {
 							kwik_date={kwik.kwik_date}
 							content={kwik.content}
 							is_liked={kwik.is_liked}
+							countedcomments={kwik.countedcomments}
+							countedlikes={kwik.countedlikes}
 							reLoad={props.reLoad} />
 					);
 				})}

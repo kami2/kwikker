@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { DeleteKwik } from './DeleteKwik';
 import { LikeKwik } from './LikeKwik';
-
-import { currentUser } from '../helpers/login-helpers';
-
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -30,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: -8,
         height: 150,
     },
+    link_comment: {
+        textDecoration: "none",
+        fontSize: '13px',
+        color: '#3b3e42',
+    },
+    likes_counter: {
+        fontSize: '13px',
+    },
     kwikTitle: {
         fontSize: '16px',
         textAlign: 'left',
@@ -41,10 +46,13 @@ const useStyles = makeStyles((theme) => ({
         wordWrap: "break-word",
         marginBottom: -10,
     },
-    like: {
-        alignText: 'left',
-        justifyContent: 'left',
-    }
+    buttons: {
+        marginTop: 12,
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: -15,
+        justifyContent: 'space-between'
+    },
 }));
 
 
@@ -54,7 +62,7 @@ export function KwikElement(props) {
 
     return (
         <Grid item xs={7} md={7}>
-            <Card className={classes.card}>
+            <Card>
                 <CardHeader className={classes.kwikTitle}
                     avatar={<Link to={`/profile/${props.user}`}>
                         <Avatar aria-label="recipe" className={classes.avatar}>
@@ -74,7 +82,7 @@ export function KwikElement(props) {
                         alt="placeholder"
                     />
                 </Link>
-                <CardContent className={classes.like}>
+                <CardContent>
                     <Typography
                         gutterBottom
                         variant="h6"
@@ -84,7 +92,15 @@ export function KwikElement(props) {
                     >
                         {props.content}
                     </Typography>
-                    <LikeKwik reLoad={props.reLoad} likeThis={props.id} isLiked={props.is_liked}/>
+                    <div className={classes.buttons}>
+                        <div className={classes.likes_counter}>
+                            <LikeKwik reLoad={props.reLoad} likeThis={props.id} isLiked={props.is_liked} />
+                            Likes ({props.countedlikes})
+                        </div>
+                        <Typography>
+                            <Link to={`/kwik/${props.id}`} className={classes.link_comment}>Comments ({props.countedcomments})</Link>
+                        </Typography>
+                    </div>
                 </CardContent>
             </Card>
         </Grid>

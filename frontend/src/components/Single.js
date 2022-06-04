@@ -85,6 +85,21 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		paddingTop: 10,
 	},
+	buttons: {
+		marginTop: 12,
+		display: 'flex',
+		alignItems: 'center',
+		marginBottom: -15,
+		justifyContent: 'space-between'
+	},
+	link_comment: {
+		textDecoration: "none",
+		fontSize: '13px',
+		color: '#3b3e42',
+	},
+	likes_counter: {
+		fontSize: '13px',
+	},
 }));
 
 export default function Single(props) {
@@ -126,7 +141,7 @@ export default function Single(props) {
 						<Link to={`/kwik/${data.kwiks.id}`}>
 							<CardMedia
 								className={classes.image}
-								image="https://source.unsplash.com/random"
+								image={`https://picsum.photos/seed/${data.kwiks.id}/600/150`}
 								alt="placeholder"
 							/>
 						</Link>
@@ -140,7 +155,15 @@ export default function Single(props) {
 							>
 								{data.kwiks.content}
 							</Typography>
-
+							<div className={classes.buttons}>
+								<div className={classes.likes_counter}>
+									<LikeKwik reLoad={loadData} likeThis={data.kwiks.id} isLiked={data.kwiks.is_liked} />
+									Likes ({data.kwiks.countedlikes})
+								</div>
+								<Typography className={classes.link_comment}>
+									Comments ({data.kwiks.countedcomments})
+								</Typography>
+							</div>
 						</CardContent>
 					</Card>
 				</Grid>
@@ -154,7 +177,7 @@ export default function Single(props) {
 				<Grid item xs={7} md={7}>
 					<Card className={classes.comments}>
 						<Typography variant="h6">Comments</Typography>
-						{data.kwiks.comment?.length === 0  &&
+						{data.kwiks.comment?.length === 0 &&
 							<Typography className={classes.be_first}>Be the first to comment</Typography>}
 						<Timeline>
 							{data.kwiks.comment?.map((kwik, i, { length }) => {
@@ -162,15 +185,15 @@ export default function Single(props) {
 									<TimelineItem key={kwik.id}>
 										<TimelineOppositeContent style={{ display: 'none' }} />
 										<TimelineSeparator>
-											<Avatar aria-label="recipe">
-												<img src='https://picsum.photos/200' alt="avatar" />
+											<Avatar>
+												<img src={kwik.avatar} alt="avatar" />
 											</Avatar>
 											{length - 1 === i ? null : <TimelineConnector />}
 										</TimelineSeparator>
 										<TimelineContent>
 											<Typography variant="subtitle1" className={classes.comment_header}>
 												<Typography display="inline" className={classes.comment_author}>
-												<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
+													<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
 												</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}</Typography>
 											</Typography>
 											<Typography variant="subtitle1" display="block" className={classes.comment_content}>
