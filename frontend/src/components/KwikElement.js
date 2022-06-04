@@ -58,7 +58,7 @@ export function KwikElement(props) {
                 <CardHeader className={classes.kwikTitle}
                     avatar={<Link to={`/profile/${props.user}`}>
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                            <img src='https://picsum.photos/200' alt="avatar" />
+                            <img src={props.avatar} alt="avatar" />
                         </Avatar>
                     </Link>
                     }
@@ -70,7 +70,7 @@ export function KwikElement(props) {
                 <Link to={`/kwik/${props.id}`}>
                     <CardMedia
                         className={classes.image}
-                        image="https://source.unsplash.com/random"
+                        image={`https://picsum.photos/seed/${props.id}/600/150`}
                         alt="placeholder"
                     />
                 </Link>

@@ -70,7 +70,7 @@ export default function ProfilePage() {
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
+                        <img src={data.user.avatar} alt="avatar" />
                     </Avatar>
                 }
                 action={isFollowIconVisible && <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} />}

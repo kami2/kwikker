@@ -44,6 +44,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
+    avatar = models.CharField(max_length=200)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -51,6 +52,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'first_name']
+
+    def save(self, *args, **kwargs):
+        self.avatar = f'https://i.pravatar.cc/150?u={self.user_name}'
+        super().save(*args, **kwargs)
 
     def isFollowing(self, loginuserid):
         return UserFollowing.objects.filter(user_id_id=loginuserid).filter(following_user_id_id=self.id).count() > 0

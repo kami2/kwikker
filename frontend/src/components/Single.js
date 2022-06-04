@@ -114,7 +114,7 @@ export default function Single(props) {
 						<CardHeader className={classes.kwikTitle}
 							avatar={<Link to={`/profile/${data.kwiks.user}`}>
 								<Avatar aria-label="recipe" className={classes.avatar}>
-									<img src='https://picsum.photos/200' alt="avatar" />
+									<img src={data.kwiks.avatar} alt="avatar" />
 								</Avatar>
 							</Link>
 							}

@@ -33,6 +33,7 @@ const Kwiks = (props) => {
 							logged_user={id}
 							id={kwik.id}
 							user={kwik.user}
+							avatar={kwik.avatar}
 							user_name={kwik.user_name}
 							kwik_date={kwik.kwik_date}
 							content={kwik.content}

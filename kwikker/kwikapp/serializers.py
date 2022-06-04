@@ -13,7 +13,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ['id', 'user_name', 'first_name', 'about', 'isfollowed', 'start_date']
+        fields = ['id', 'user_name', 'avatar', 'first_name', 'about', 'isfollowed', 'start_date']
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -27,12 +27,13 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class DetailKwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
+    avatar = serializers.ReadOnlyField(source='user.avatar')
     comment = CommentSerializer(many=True, read_only=True)
     kwik_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
 
     class Meta:
         model = Kwik
-        fields = ('id', 'user', 'user_name','kwik_date', 'content', 'comment')
+        fields = ('id', 'user', 'avatar', 'user_name','kwik_date', 'content', 'comment')
 
 
 class CreateKwikSerializer(serializers.ModelSerializer):
@@ -55,6 +56,7 @@ class LikeKwikSerializer(serializers.ModelSerializer):
 class KwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
     kwik_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
+    avatar = serializers.ReadOnlyField(source='user.avatar')
     is_liked = serializers.SerializerMethodField("liked")
     countedlikes = serializers.SerializerMethodField("counted_likes")
 
@@ -67,7 +69,7 @@ class KwikSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Kwik
-        fields = ('id', 'user', 'user_name', 'content', 'kwik_date', 'is_liked', 'countedlikes')
+        fields = ('id', 'user', 'avatar', 'user_name', 'content', 'kwik_date', 'is_liked', 'countedlikes')
 
 
 class FollowingSerializer(serializers.ModelSerializer):
