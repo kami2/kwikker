@@ -187,7 +187,7 @@ export default function Single(props) {
 												<Typography display="inline" className={classes.comment_author}>
 													<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
 												</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}
-												{String(user.id) === String(kwik.user) && <DeleteComment style={{fontSize: 30}} reFresh={loadData} toDelete={kwik.id} />}
+												{String(user.id) === String(kwik.user) && <DeleteComment reFresh={loadData} toDelete={kwik.id} />}
 												</Typography>
 											</Typography>
 											<Typography variant="subtitle1" display="block" className={classes.comment_content}>

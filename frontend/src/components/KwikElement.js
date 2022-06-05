@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { DeleteKwik } from './DeleteKwik';
 import { LikeKwik } from './LikeKwik';
+import { currentUser } from '../helpers/login-helpers';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -59,26 +60,27 @@ const useStyles = makeStyles((theme) => ({
 
 export function KwikElement(props) {
     const classes = useStyles();
+    const { id } = currentUser();
 
     return (
         <Grid item xs={7} md={7}>
             <Card>
                 <CardHeader className={classes.kwikTitle}
-                    avatar={<Link to={`/profile/${props.user}`}>
+                    avatar={<Link to={`/profile/${props.kwik.user}`}>
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                            <img src={props.avatar} alt="avatar" />
+                            <img src={props.kwik.avatar} alt="avatar" />
                         </Avatar>
                     </Link>
                     }
-                    title={<Link to={`/profile/${props.user}`} className={classes.link}>{props.user_name}</Link>}
-                    subheader={props.kwik_date}
-                    action={String(props.logged_user) === String(props.user) &&
-                        <DeleteKwik reFresh={props.reLoad} toDelete={props.id} />}
+                    title={<Link to={`/profile/${props.kwik.user}`} className={classes.link}>{props.kwik.user_name}</Link>}
+                    subheader={props.kwik.kwik_date}
+                    action={String(id) === String(props.kwik.user) &&
+                        <DeleteKwik reFresh={props.reLoad} toDelete={props.kwik.id} />}
                 />
-                <Link to={`/kwik/${props.id}`}>
+                <Link to={`/kwik/${props.kwik.id}`}>
                     <CardMedia
                         className={classes.image}
-                        image={`https://picsum.photos/seed/${props.id}/600/150`}
+                        image={`https://picsum.photos/seed/${props.kwik.id}/600/150`}
                         alt="placeholder"
                     />
                 </Link>
@@ -90,15 +92,15 @@ export function KwikElement(props) {
                         display="block"
                         className={classes.kwikText}
                     >
-                        {props.content}
+                        {props.kwik.content}
                     </Typography>
                     <div className={classes.buttons}>
                         <div className={classes.likes_counter}>
-                            <LikeKwik reLoad={props.reLoad} likeThis={props.id} isLiked={props.is_liked} />
-                            Likes ({props.countedlikes})
+                            <LikeKwik reLoad={props.reLoad} likeThis={props.kwik.id} isLiked={props.kwik.is_liked} />
+                            Likes ({props.kwik.countedlikes})
                         </div>
                         <Typography>
-                            <Link to={`/kwik/${props.id}`} className={classes.link_comment}>Comments ({props.countedcomments})</Link>
+                            <Link to={`/kwik/${props.kwik.id}`} className={classes.link_comment}>Comments ({props.kwik.countedcomments})</Link>
                         </Typography>
                     </div>
                 </CardContent>

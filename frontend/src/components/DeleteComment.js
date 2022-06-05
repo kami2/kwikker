@@ -24,7 +24,7 @@ export function DeleteComment(props) {
 
     return (
         <IconButton onClick={handleSubmit} type="submit" aria-label="delete">
-            <DeleteForeverOutlinedIcon   style={{fontSize: 20}} />
+            <DeleteForeverOutlinedIcon style={{fontSize: 20}} />
         </IconButton>
     );
 }
