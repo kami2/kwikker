@@ -62,6 +62,17 @@ class AddComment(generics.CreateAPIView):
     serializer_class = CommentSerializer
 
 
+class DeleteComment(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = CommentKwik.objects.all()
+    serializer_class = CommentSerializer
+
+    def delete(self, request, pk):
+        comment_to_delete = CommentKwik.objects.filter(id=pk).filter(user_id=request.user.id)
+        comment_to_delete.delete()
+        return Response({"status": "ok"}, status=status.HTTP_200_OK)
+
+
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserDetailSerializer

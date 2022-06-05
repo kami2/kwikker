@@ -22,12 +22,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 
-
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 
 import { DeleteKwik } from './DeleteKwik';
 import { LikeKwik } from './LikeKwik';
+import { DeleteComment } from './DeleteComment';
 
 
 
@@ -92,11 +92,6 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: -15,
 		justifyContent: 'space-between'
 	},
-	link_comment: {
-		textDecoration: "none",
-		fontSize: '13px',
-		color: '#3b3e42',
-	},
 	likes_counter: {
 		fontSize: '13px',
 	},
@@ -160,9 +155,6 @@ export default function Single(props) {
 									<LikeKwik reLoad={loadData} likeThis={data.kwiks.id} isLiked={data.kwiks.is_liked} />
 									Likes ({data.kwiks.countedlikes})
 								</div>
-								<Typography className={classes.link_comment}>
-									Comments ({data.kwiks.countedcomments})
-								</Typography>
 							</div>
 						</CardContent>
 					</Card>
@@ -176,7 +168,7 @@ export default function Single(props) {
 			<Grid container justifyContent="center" spacing={2}>
 				<Grid item xs={7} md={7}>
 					<Card className={classes.comments}>
-						<Typography variant="h6">Comments</Typography>
+						<Typography variant="h6">Comments ({data.kwiks.countedcomments})</Typography>
 						{data.kwiks.comment?.length === 0 &&
 							<Typography className={classes.be_first}>Be the first to comment</Typography>}
 						<Timeline>
@@ -194,7 +186,9 @@ export default function Single(props) {
 											<Typography variant="subtitle1" className={classes.comment_header}>
 												<Typography display="inline" className={classes.comment_author}>
 													<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
-												</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}</Typography>
+												</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}
+												{String(user.id) === String(kwik.user) && <DeleteComment style={{fontSize: 30}} reFresh={loadData} toDelete={kwik.id} />}
+												</Typography>
 											</Typography>
 											<Typography variant="subtitle1" display="block" className={classes.comment_content}>
 												{kwik.comment}

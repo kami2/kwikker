@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import UserDetail, UnLikeThisKwik, LikeThisKwik, UnFollowProfile, FollowProfile, AddComment, KwikList, KwikDetail, CustomUserCreate, BlacklistTokenUpdateView, KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik
+from .views import UserDetail, UnLikeThisKwik, LikeThisKwik, UnFollowProfile,\
+    FollowProfile, AddComment, KwikList, KwikDetail, CustomUserCreate, BlacklistTokenUpdateView,\
+    KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik, DeleteComment
 
 app_name='kwikapp'
 
@@ -17,10 +19,14 @@ urlpatterns = [
 
     path('', KwikListAll.as_view(), name='kwik_all'),
     path('kwik/<int:pk>/', KwikDetail.as_view(), name='detail_kwik'),
-    path('kwik/create/', CreateKwik.as_view(), name='kwik_create'),
+
     path('kwik/<int:pk>/like/', LikeThisKwik.as_view(), name="kwik_like"),
     path('kwik/<int:pk>/unlike/', UnLikeThisKwik.as_view(), name="kwik_like"),
-    path('kwik/create/comment/', AddComment.as_view(), name='kwik_create'),
+
+    path('kwik/delete/comment/<int:pk>/', DeleteComment.as_view(), name='kwik_delete_comment'),
+    path('kwik/create/comment/', AddComment.as_view(), name='kwik_create_comment'),
+
+    path('kwik/create/', CreateKwik.as_view(), name='kwik_create'),
     path('kwik/delete/<int:pk>/', DeleteKwik.as_view(), name='kwik_delete'),
 
 ]
