@@ -74,7 +74,7 @@ export default function ProfilePage() {
                     </Avatar>
                 }
                 action={isFollowIconVisible && <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} />}
-                title={data.user.first_name}
+                title={data.user.user_name}
                 subheader={data.user.start_date}
             />
             <CardMedia

@@ -26,7 +26,11 @@ class KwikUserWritePermission(BasePermission):
 class KwikListAll(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = KwikSerializer
-    queryset = Kwik.objects.all().order_by('-kwik_date')
+
+    def get_queryset(self):
+        user = self.request.user
+        # return Kwik.objects.filter(user__followers__in=UserFollowing.objects.filter(user_id=user)).order_by('-kwik_date')
+        return Kwik.objects.all().order_by('-kwik_date')
 
 
 class UnLikeThisKwik(generics.DestroyAPIView):
@@ -44,16 +48,6 @@ class LikeThisKwik(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = LikeKwik.objects.all()
     serializer_class = LikeKwikSerializer
-
-
-class KwikList(generics.ListAPIView):
-    permission_classes = [AllowAny]
-    serializer_class = KwikSerializer
-
-    def get_queryset(self):
-        user = self.request.query_params.get('user', None)
-        print(user)
-        return Kwik.objects.filter(user=user)
 
 
 class AddComment(generics.CreateAPIView):

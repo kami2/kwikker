@@ -9,10 +9,7 @@ import axiosInstance from './axios';
 
 function App() {
 
-
-
-
-    const [appState, setAppState] = useState([]);
+    const [appState, setAppState] = useState({});
 
     const loadData = () => {
         axiosInstance.get('/')
@@ -24,7 +21,6 @@ function App() {
     }
 
     useEffect(loadData, [setAppState]);
-
 
 
     return (
