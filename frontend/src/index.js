@@ -11,7 +11,7 @@ import Logout from './components/Logout';
 import Single from './components/Single';
 import ProfilePage from './components/ProfilePage';
 import reportWebVitals from './reportWebVitals';
-import { Layout } from './components/Layout';
+
 
 
 
@@ -21,11 +21,9 @@ const routing = (
     <React.StrictMode>
       <Header />
       <Routes>
-        <Route element={<Layout />}>
-          <Route exact path='/home' element={<App />} />
-          <Route exact path='/kwik/:id' element={<Single />} />
-          <Route exact path='/profile/:id' element={<ProfilePage />} />
-        </Route>
+        <Route exact path='/home' element={<App />} />
+        <Route exact path='/kwik/:id' element={<Single />} />
+        <Route exact path='/profile/:id' element={<ProfilePage />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/' element={<Login />} />
         <Route exact path='/logout' element={<Logout />} />

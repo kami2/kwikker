@@ -1,10 +1,10 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 
-export function Layout() {
+export default function Layout(props) {
+    console.log(props)
     return (
         <div>
-            <Outlet />
+            {props.children}
         </div>
     )
 }

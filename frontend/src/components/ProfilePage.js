@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import Layout from './Layout';
 
 
 
@@ -66,6 +67,7 @@ export default function ProfilePage() {
 
 
     return (
+        <Layout>
         <Card className={classes.root}>
             <CardHeader
                 avatar={
@@ -88,5 +90,6 @@ export default function ProfilePage() {
                 </Typography>
             </CardContent>
         </Card>
+        </Layout>
     );
 }

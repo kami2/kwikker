@@ -28,6 +28,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { DeleteKwik } from './DeleteKwik';
 import { LikeKwik } from './LikeKwik';
 import { DeleteComment } from './DeleteComment';
+import Layout from './Layout';
 
 
 
@@ -118,6 +119,7 @@ export default function Single(props) {
 	}, [loadData]);
 
 	return (
+		<Layout>
 		<Container maxWidth="md" component="main">
 			<Grid container justifyContent="center" spacing={2} className={classes.root}>
 				<Grid item xs={7} md={7}>
@@ -206,5 +208,6 @@ export default function Single(props) {
 
 
 		</Container>
+		</Layout>
 	);
 }
