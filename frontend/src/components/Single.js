@@ -58,12 +58,8 @@ const useStyles = makeStyles((theme) => ({
 		wordWrap: "break-word",
 		marginBottom: -10,
 	},
-	addcomment: {
-		textAlign: 'center',
-	},
 	comment_header: {
 		marginTop: -11,
-		marginLeft: -7,
 	},
 	comment_author: {
 		fontWeight: 'bold',
@@ -74,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	comment_content: {
 		marginTop: -4,
-		marginLeft: -7,
 		marginBottom: 10,
 		overflowWrap: 'anywhere',
 	},
@@ -120,9 +115,9 @@ export default function Single(props) {
 
 	return (
 		<Layout>
-		<Container maxWidth="md" component="main">
-			<Grid container justifyContent="center" spacing={2} className={classes.root}>
-				<Grid item xs={7} md={7}>
+		<Container component="main">
+			<Grid container justifyContent="center" className={classes.root}>
+				<Grid item>
 					<Card>
 						<CardHeader className={classes.kwikTitle}
 							avatar={<Link to={`/profile/${data.kwiks.user}`}>
@@ -165,11 +160,11 @@ export default function Single(props) {
 			</Grid>
 
 			<div className={classes.addcomment}>
-				{isLoggedIn() ? <AddComment load={loadData} kwikId={id} /> : null}
+				<AddComment load={loadData} kwikId={id} />
 			</div>
 
-			<Grid container justifyContent="center" spacing={2}>
-				<Grid item xs={7} md={7}>
+			<Grid container justifyContent="center">
+				<Grid item>
 					<Card className={classes.comments}>
 						<Typography variant="h6">Comments ({data.kwiks.countedcomments})</Typography>
 						{data.kwiks.comment?.length === 0 &&
