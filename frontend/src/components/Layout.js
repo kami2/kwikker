@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { LeftSide } from "./LeftSide";
+import { RightSide } from "./RightSide";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,7 @@ export default function Layout(props) {
                     {props.children}
                 </Grid>
                 <Grid item xs md>
-                    rightmenu
+                    <RightSide />
                 </Grid>
             </Grid>
         </div>

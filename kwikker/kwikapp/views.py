@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import CreateKwikSerializer, KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, \
-    UserDetailSerializer, FollowingSerializer, LikeKwikSerializer
+    UserDetailSerializer, FollowingSerializer, LikeKwikSerializer, AllUsersSerializer
 
 
 class KwikUserWritePermission(BasePermission):
@@ -42,6 +42,13 @@ class UnLikeThisKwik(generics.DestroyAPIView):
         like_to_delete = LikeKwik.objects.filter(kwik_id=pk).filter(user_id=request.user.id)
         like_to_delete.delete()
         return Response({"status": "ok"}, status=status.HTTP_200_OK)
+
+
+class LatestUsers(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AllUsersSerializer
+    queryset = NewUser.objects.all().order_by('-start_date')[:5]
+
 
 
 class LikeThisKwik(generics.CreateAPIView):

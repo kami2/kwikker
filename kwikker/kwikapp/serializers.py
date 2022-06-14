@@ -16,6 +16,11 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ['id', 'user_name', 'avatar', 'first_name', 'about', 'isfollowed', 'start_date']
 
 
+class AllUsersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewUser
+        fields = ['id', 'user_name', 'avatar']
+
 class CreateKwikSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.user_name')
 
