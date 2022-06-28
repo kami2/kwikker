@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: -4,
 		marginBottom: 10,
 		overflowWrap: 'anywhere',
+		lineHeight: '16px',
 	},
 	comments: {
 		paddingTop: 5,
@@ -188,7 +189,7 @@ export default function Single(props) {
 												{String(user.id) === String(kwik.user) && <DeleteComment reFresh={loadData} toDelete={kwik.id} />}
 												</Typography>
 											</Typography>
-											<Typography variant="subtitle1" display="block" className={classes.comment_content}>
+											<Typography variant="caption" display="block" className={classes.comment_content}>
 												{kwik.comment}
 											</Typography>
 										</TimelineContent>

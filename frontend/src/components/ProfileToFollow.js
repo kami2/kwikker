@@ -45,6 +45,11 @@ const useStyles = makeStyles((theme) => ({
     },
     about: {
         wordWrap: "break-word",
+        marginTop: 5,
+        marginBottom: -4,
+        lineHeight: '18px',
+        fontSize: 13,
+        color: '#5c5c5c',
     }
 }));
 
@@ -88,7 +93,7 @@ export default function ProfileToFollow(props) {
                                 </div>
                                 
                                 
-                                <Typography variant='body2' display="block" className={classes.about}>{profile.about}</Typography>
+                                <Typography variant="caption" display="block" className={classes.about}>{profile.about}</Typography>
                                 
                             </Paper>
                             </Link>
