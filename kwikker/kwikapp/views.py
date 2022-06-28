@@ -23,6 +23,12 @@ class KwikUserWritePermission(BasePermission):
         return obj.user == request.user
 
 
+class ProfilesToFollowList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = NewUser.objects.all()
+    serializer_class = UserDetailSerializer
+
+
 class KwikListAll(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = KwikSerializer
@@ -48,7 +54,6 @@ class LatestUsers(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = AllUsersSerializer
     queryset = NewUser.objects.all().order_by('-start_date')[:5]
-
 
 
 class LikeThisKwik(generics.CreateAPIView):

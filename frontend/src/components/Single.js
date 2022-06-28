@@ -164,7 +164,7 @@ export default function Single(props) {
 			</div>
 
 			<Grid container justifyContent="center">
-				<Grid item>
+				<Grid item xs={12}>
 					<Card className={classes.comments}>
 						<Typography variant="h6">Comments ({data.kwiks.countedcomments})</Typography>
 						{data.kwiks.comment?.length === 0 &&

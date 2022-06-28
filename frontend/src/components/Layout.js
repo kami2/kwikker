@@ -23,7 +23,7 @@ export default function Layout(props) {
                 <Grid item xs>
                     <div className={classes.leftMenu}><LeftSide /></div>
                 </Grid>
-                <Grid item xs>
+                <Grid item xs={4}>
                     {props.children}
                 </Grid>
                 <Grid item xs md>

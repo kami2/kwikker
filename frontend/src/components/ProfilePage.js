@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         backgroundColor: red[500],
     },
+    about: {
+        wordWrap: "break-word",
+    }
 }));
 
 export default function ProfilePage() {
@@ -85,7 +88,7 @@ export default function ProfilePage() {
                 title="Paella dish"
             />
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography className={classes.about} variant="body2" color="textSecondary" component="p">
                     {data.user.about}
                 </Typography>
             </CardContent>

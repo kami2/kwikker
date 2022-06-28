@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import UserDetail, UnLikeThisKwik, LikeThisKwik, UnFollowProfile,\
     FollowProfile, AddComment, KwikDetail, CustomUserCreate, BlacklistTokenUpdateView,\
-    KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik, DeleteComment, LatestUsers
+    KwikDetailFilter, KwikListAll, DeleteKwik,  CreateKwik, DeleteComment, LatestUsers, ProfilesToFollowList
 
 app_name='kwikapp'
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('profile/<int:pk>/unfollow', UnFollowProfile.as_view(), name='profile_unfollow'),
 
     path('users/latest', LatestUsers.as_view(), name='latest_users'),
+    path('users/tofollow', ProfilesToFollowList.as_view(), name='users_to_follow'),
 
     path('register/', CustomUserCreate.as_view(), name='create_user'),
     path('logout/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
