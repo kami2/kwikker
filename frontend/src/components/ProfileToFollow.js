@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Link from "@material-ui/core/Link";
 
-
+import FollowProfileButton from "./FollowProfileButton";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         padding: theme.spacing(1),
-        color: theme.palette.text.secondary,
+        backgroundColor: '#fafafa',
         '&:hover': {
             backgroundColor: '#f5f5f5',
         },
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 5,
     },
     followed: {
-        float: 'right',
+        marginLeft: 'auto',
     },
     link: {
         textTransform: "none",
@@ -84,18 +84,15 @@ export default function ProfileToFollow(props) {
                     return (
                         <Grid item key={profile.id} xs>
                             <Link underline="none" href={`/profile/${profile.id}`}>
-                            <Paper className={classes.paper} variant="outlined">
-                                <div className={classes.inpaper}>
-                                <Avatar variant="rounded" alt="avatar" src={profile.avatar} />
-                                <Typography className={classes.username}>{profile.user_name}</Typography>
-                                <Typography variant='subtitle2'>Joined - {profile.start_date}</Typography>
-                                <Typography className={classes.followed}>{profile.isfollowed ? 'followed' : null}</Typography>
-                                </div>
-                                
-                                
-                                <Typography variant="caption" display="block" className={classes.about}>{profile.about}</Typography>
-                                
-                            </Paper>
+                                <Paper className={classes.paper} variant="outlined">
+                                    <div className={classes.inpaper}>
+                                        <Avatar variant="rounded" alt="avatar" src={profile.avatar} />
+                                        <Typography className={classes.username}>{profile.user_name}</Typography>
+                                        <Typography variant='subtitle2'>Joined - {profile.start_date}</Typography>
+                                        <span className={classes.followed}><FollowProfileButton loadData={loadData} pastData={profile} /></span>
+                                    </div>
+                                    <Typography variant="caption" display="block" className={classes.about}>{profile.about}</Typography>
+                                </Paper>
                             </Link>
                         </Grid>
                     );

@@ -119,7 +119,7 @@ export default function Single(props) {
 		<Container component="main">
 			<Grid container justifyContent="center" className={classes.root}>
 				<Grid item>
-					<Card>
+					<Card variant="outlined">
 						<CardHeader className={classes.kwikTitle}
 							avatar={<Link to={`/profile/${data.kwiks.user}`}>
 								<Avatar aria-label="recipe" className={classes.avatar}>
