@@ -3,6 +3,11 @@ from kwikapp.models import Kwik, NewUser, CommentKwik, UserFollowing, LikeKwik
 from django.conf import settings
 
 
+class EditProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewUser
+        fields = ['id', 'user_name', 'about']
+
 class UserDetailSerializer(serializers.ModelSerializer):
     isfollowed = serializers.SerializerMethodField('followed')
     start_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
@@ -13,7 +18,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ['id', 'user_name', 'avatar', 'first_name', 'about', 'isfollowed', 'start_date']
+        fields = ['id', 'user_name', 'avatar', 'about', 'isfollowed', 'start_date']
 
 
 class AllUsersSerializer(serializers.ModelSerializer):
@@ -121,7 +126,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = settings.AUTH_USER_MODEL
-        fields = ('email', 'user_name', 'first_name')
+        fields = ('email', 'user_name')
         extra_kwargs = {'password': {'write_only': True}}
 
 

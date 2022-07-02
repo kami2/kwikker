@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     kwikTitle: {
         fontSize: '16px',
         textAlign: 'left',
+        marginTop: -8,
     },
     kwikText: {
         justifyContent: 'left',

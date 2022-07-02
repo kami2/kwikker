@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import CreateKwikSerializer, KwikSerializer, CustomUserSerializer, DetailKwikSerializer, CommentSerializer, \
-    UserDetailSerializer, FollowingSerializer, LikeKwikSerializer, AllUsersSerializer
+    UserDetailSerializer, FollowingSerializer, LikeKwikSerializer, AllUsersSerializer, EditProfileSerializer
 
 
 class KwikUserWritePermission(BasePermission):
@@ -21,6 +21,12 @@ class KwikUserWritePermission(BasePermission):
             return True
 
         return obj.user == request.user
+
+
+class EditProfile(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = NewUser.objects.all()
+    serializer_class = EditProfileSerializer
 
 
 class ProfilesToFollowList(generics.ListAPIView):

@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import Layout from './Layout';
+import { Grid } from '@material-ui/core';
 
 
 
@@ -20,23 +21,16 @@ import Layout from './Layout';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 600,
-        marginTop: 20,
-        margin: '0 auto',
+        marginTop: 10,
     },
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
     },
-    expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
+    profile: {
+        color: '#2c7a94',
+        fontWeight: 'bold',
+        fontSize: '16px',
     },
     avatar: {
         backgroundColor: red[500],
@@ -71,8 +65,10 @@ export default function ProfilePage() {
 
     return (
         <Layout>
-        <Card className={classes.root}>
-            <CardHeader
+        <Grid container justifyContent="center" spacing={2} className={classes.root}>
+            <Grid item>
+        <Card variant="outlined">
+            <CardHeader className={classes.profile}
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
                         <img src={data.user.avatar} alt="avatar" />
@@ -93,6 +89,8 @@ export default function ProfilePage() {
                 </Typography>
             </CardContent>
         </Card>
+        </Grid>
+        </Grid>
         </Layout>
     );
 }
