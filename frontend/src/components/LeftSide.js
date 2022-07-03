@@ -33,7 +33,7 @@ export function LeftSide() {
         alignItems="flex-start">
         <Button size='large' startIcon={<HomeOutlinedIcon />} href='/home'>Home</Button>
         <Button size='large' startIcon={<PersonOutlineIcon />} href={`/profile/${id}`}>Profile</Button>
-        <Button size='large' startIcon={<GroupAddOutlinedIcon />} href='/users'>Followers</Button>
+        <Button size='large' startIcon={<GroupAddOutlinedIcon />} href='/users'>Kwikkers</Button>
         <Button size='large' startIcon={<SettingsOutlinedIcon />} href='/edit'>Edit Profile</Button>
         <Button size='large' startIcon={<MeetingRoomOutlinedIcon />} href='/logout'>Logout</Button>
       </Grid>

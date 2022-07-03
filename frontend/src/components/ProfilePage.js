@@ -37,6 +37,17 @@ const useStyles = makeStyles((theme) => ({
     },
     about: {
         wordWrap: "break-word",
+    },
+    statsFollowing: {
+        fontWeight: 'bold',
+        marginTop: 0,
+    },
+    statsFollowed: {
+        fontWeight: 'bold',
+    },
+    stats: {
+        marginTop: -10,
+        marginBottom: 10,
     }
 }));
 
@@ -44,7 +55,7 @@ export default function ProfilePage() {
     const classes = useStyles();
 
     const user = currentUser();
-    
+
     const { id } = useParams();
     const [data, setData] = useState({ user: [] });
 
@@ -55,7 +66,7 @@ export default function ProfilePage() {
         });
     }, [id])
 
-    const isFollowIconVisible = isLoggedIn()&& user.id !== id
+    const isFollowIconVisible = isLoggedIn() && user.id !== id
 
 
     useEffect(() => {
@@ -65,32 +76,41 @@ export default function ProfilePage() {
 
     return (
         <Layout>
-        <Grid container justifyContent="center" spacing={2} className={classes.root}>
-            <Grid item>
-        <Card variant="outlined">
-            <CardHeader className={classes.profile}
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        <img src={data.user.avatar} alt="avatar" />
-                    </Avatar>
-                }
-                action={isFollowIconVisible && <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} />}
-                title={data.user.user_name}
-                subheader={data.user.start_date}
-            />
-            <CardMedia
-                className={classes.media}
-                image="https://source.unsplash.com/random"
-                title="Paella dish"
-            />
-            <CardContent>
-                <Typography className={classes.about} variant="body2" color="textSecondary" component="p">
-                    {data.user.about}
-                </Typography>
-            </CardContent>
-        </Card>
-        </Grid>
-        </Grid>
+            <Grid container justifyContent="center" spacing={2} className={classes.root}>
+                <Grid item xs={12}>
+                    <Card variant="outlined">
+                        <CardHeader className={classes.profile}
+                            avatar={
+                                <Avatar aria-label="recipe" className={classes.avatar}>
+                                    <img src={data.user.avatar} alt="avatar" />
+                                </Avatar>
+                            }
+                            action={isFollowIconVisible && <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} />}
+                            title={data.user.user_name}
+                            subheader={data.user.start_date}
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image="https://source.unsplash.com/random"
+                            title="Paella dish"
+                        />
+                        <CardContent>
+                            <Grid item className={classes.stats} alignItems="flex-end">
+                                <Typography display='inline' className={classes.statsFollowing} variant="body2" color="textSecondary">
+                                    following: 2
+                                </Typography>
+                                <Typography display='inline' className={classes.statsFollowed} variant="body2" color="textSecondary">
+                                    followed: 6
+                                </Typography>
+                            </Grid>
+
+                            <Typography className={classes.about} variant="body2" color="textSecondary" component="p">
+                                {data.user.about}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </Grid>
         </Layout>
     );
 }
