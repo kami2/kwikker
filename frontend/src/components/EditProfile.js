@@ -41,15 +41,17 @@ export default function EditProfile(props) {
     const {id} = currentUser();
 
     const [data, setData] = useState({ profile: [] });
-    const [username, setUsername] = useState('controled')
-    const [about, setAbout] = useState('controlled')
+    const [username, setUsername] = useState("")
+    const [about, setAbout] = useState("")
 
 
 	const loadData = React.useCallback(() => {
 		axiosInstance.get(`profile/edit/${id}`).then((res) => {
 			setData({ profile: res.data });
+            setUsername(res.data['user_name'])
+            setAbout(res.data['about'])
 			console.log(res.data);
-		});
+		})
 	}, [id])
 
 	useEffect(() => {
@@ -59,19 +61,15 @@ export default function EditProfile(props) {
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
-        console.log(e.target.value);
     }
 
     const handleAboutChange = (e) => {
         setAbout(e.target.value);
-        console.log(e.target.value);
     }
     
 
     const handleSubmit = (e) => {
 		e.preventDefault();
-        console.log(username)
-        console.log(about)
 
 		axiosInstance
 			.put(`profile/edit/${id}`, {
@@ -84,6 +82,7 @@ export default function EditProfile(props) {
               });
 	};
 
+    if (!data || data.length === 0) return <p>Loading data</p>;
     return (
         <Layout>
             <div><Typography variant='h5' className={classes.title}>Edit Profile</Typography></div>
@@ -108,6 +107,7 @@ export default function EditProfile(props) {
                         rows={6}
                         inputProps={{ maxLength: 300 }}
                         value={about}
+                        margin="normal"
                         className={classes.aboutField}
                         helperText="Write something about yourself"
                         variant="outlined"
