@@ -10,6 +10,7 @@ import { Typography } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { DeleteAccount } from "./DeleteAccount";
+import { useNavigate } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EditProfile(props) {
     const classes = useStyles();
     const {id} = currentUser();
+    const navigate = useNavigate();
 
     const [data, setData] = useState({ profile: [] });
     const [username, setUsername] = useState("")
@@ -79,6 +81,7 @@ export default function EditProfile(props) {
 			})
             .then((res) => {
                 loadData();
+                navigate(`/profile/${id}`);
               });
 	};
 
@@ -125,7 +128,7 @@ export default function EditProfile(props) {
                     >
                         Save
                     </Button>
-                    <DeleteAccount loadData={loadData} toDelete={id} />
+                    <DeleteAccount toDelete={id} />
                 </div>
                 </form>
             </div>
