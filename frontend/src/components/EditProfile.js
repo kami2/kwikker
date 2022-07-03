@@ -41,8 +41,8 @@ export default function EditProfile(props) {
     const {id} = currentUser();
 
     const [data, setData] = useState({ profile: [] });
-    const [username, setUsername] = useState('')
-    const [about, setAbout] = useState('')
+    const [username, setUsername] = useState('controled')
+    const [about, setAbout] = useState('controlled')
 
 
 	const loadData = React.useCallback(() => {
@@ -59,10 +59,12 @@ export default function EditProfile(props) {
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
+        console.log(e.target.value);
     }
 
     const handleAboutChange = (e) => {
         setAbout(e.target.value);
+        console.log(e.target.value);
     }
     
 
@@ -91,7 +93,7 @@ export default function EditProfile(props) {
                     <TextField
                         label="Username"
                         inputProps={{ maxLength: 30 }}
-                        defaultValue={username}
+                        value={username}
                         className={classes.usernameField}
                         helperText="Change your username"
                         margin="normal"
@@ -105,7 +107,7 @@ export default function EditProfile(props) {
                         multiline
                         rows={6}
                         inputProps={{ maxLength: 300 }}
-                        defaultValue={data.profile.about}
+                        value={about}
                         className={classes.aboutField}
                         helperText="Write something about yourself"
                         variant="outlined"
