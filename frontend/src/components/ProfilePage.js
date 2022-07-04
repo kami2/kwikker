@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axiosInstance from '../axios';
 import FollowProfile from './FollowProfile';
 import { currentUser, isLoggedIn } from '../helpers/login-helpers';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,6 +14,8 @@ import { red } from '@material-ui/core/colors';
 import Layout from './Layout';
 import { Grid } from '@material-ui/core';
 import ProfileKwiks from './ProfileKwiks';
+import FollowingList from './FollowingList';
+import FollowersList from './FollowersList';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,12 +98,8 @@ export default function ProfilePage() {
 							/>
                         <CardContent>
                             <Grid item className={classes.stats}>
-                                <Typography display='inline' className={classes.statsFollowing} variant="body2" color="textSecondary">
-                                     {data.user.countFollowing} Following
-                                </Typography>
-                                <Typography display='inline' className={classes.statsFollowed} variant="body2" color="textSecondary">
-                                     {data.user.countFollowers} Followed
-                                </Typography>
+                                <FollowingList following={data.user.countFollowing} id={id} />
+                                <FollowersList followers={data.user.countFollowers} id={id} />
                             </Grid>
 
                             <Typography className={classes.about} variant="body2" color="textSecondary" component="p">
