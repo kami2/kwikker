@@ -11,6 +11,14 @@ class EditProfileSerializer(serializers.ModelSerializer):
 class UserDetailSerializer(serializers.ModelSerializer):
     isfollowed = serializers.SerializerMethodField('followed')
     start_date = serializers.DateTimeField(format="%B %d, %Y %H:%M")
+    countFollowing = serializers.SerializerMethodField('following')
+    countFollowers = serializers.SerializerMethodField('followers')
+
+    def followers(self, profile):
+        return profile.countFollowers()
+
+    def following(self, profile):
+        return profile.countFollowing()
 
     def followed(self, profile):
         loggeduser = self.context['request'].user.id
@@ -18,7 +26,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ['id', 'user_name', 'avatar', 'about', 'isfollowed', 'start_date']
+        fields = ['id', 'user_name', 'avatar', 'about', 'isfollowed', 'start_date', 'countFollowing', 'countFollowers']
 
 
 class AllUsersSerializer(serializers.ModelSerializer):

@@ -31,8 +31,19 @@ class EditProfile(generics.RetrieveUpdateDestroyAPIView):
 
 class ProfilesToFollowList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = NewUser.objects.all()
     serializer_class = UserDetailSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return NewUser.objects.exclude(id=user.id).order_by( 'user_name')
+
+
+class OnlyThisProfileKwiks(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = KwikSerializer
+
+    def get_queryset(self):
+        return Kwik.objects.filter(user=self.kwargs['pk'])
 
 
 class KwikListAll(generics.ListAPIView):

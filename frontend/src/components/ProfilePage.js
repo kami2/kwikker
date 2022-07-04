@@ -14,19 +14,17 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import Layout from './Layout';
 import { Grid } from '@material-ui/core';
-
-
-
+import ProfileKwiks from './ProfileKwiks';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: 10,
     },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
+	image: {
+		marginTop: -8,
+		height: 150,
+	},
     profile: {
         color: '#2c7a94',
         fontWeight: 'bold',
@@ -37,17 +35,20 @@ const useStyles = makeStyles((theme) => ({
     },
     about: {
         wordWrap: "break-word",
+        fontSize: 18,
     },
     statsFollowing: {
         fontWeight: 'bold',
-        marginTop: 0,
+        marginRight: 10,
     },
     statsFollowed: {
         fontWeight: 'bold',
     },
     stats: {
         marginTop: -10,
-        marginBottom: 10,
+        marginBottom: 6,
+        display: 'flex',
+        justifyContent: 'flex-end'
     }
 }));
 
@@ -79,28 +80,28 @@ export default function ProfilePage() {
             <Grid container justifyContent="center" spacing={2} className={classes.root}>
                 <Grid item xs={12}>
                     <Card variant="outlined">
-                        <CardHeader className={classes.profile}
+                        <CardHeader
                             avatar={
                                 <Avatar aria-label="recipe" className={classes.avatar}>
                                     <img src={data.user.avatar} alt="avatar" />
                                 </Avatar>
                             }
                             action={isFollowIconVisible && <FollowProfile loadData={loadData} isFollowed={data.user.isfollowed} followThis={id} />}
-                            title={data.user.user_name}
+                            title={<div className={classes.profile}>{data.user.user_name}</div>}
                             subheader={data.user.start_date}
                         />
                         <CardMedia
-                            className={classes.media}
-                            image="https://source.unsplash.com/random"
-                            title="Paella dish"
-                        />
+								className={classes.image}
+								image={`https://picsum.photos/seed/${data.user.id}/600/150`}
+								alt="placeholder"
+							/>
                         <CardContent>
-                            <Grid item className={classes.stats} alignItems="flex-end">
+                            <Grid item className={classes.stats}>
                                 <Typography display='inline' className={classes.statsFollowing} variant="body2" color="textSecondary">
-                                    following: 2
+                                     {data.user.countFollowing} Following
                                 </Typography>
                                 <Typography display='inline' className={classes.statsFollowed} variant="body2" color="textSecondary">
-                                    followed: 6
+                                     {data.user.countFollowers} Followed
                                 </Typography>
                             </Grid>
 
@@ -110,6 +111,7 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
                 </Grid>
+                <Grid item><ProfileKwiks id={id} /></Grid>
             </Grid>
         </Layout>
     );

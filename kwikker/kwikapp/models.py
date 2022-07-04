@@ -56,8 +56,14 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         self.avatar = f'https://i.pravatar.cc/50?u={self.user_name}'
         super().save(*args, **kwargs)
 
-    def isFollowing(self, loginuserid):
-        return UserFollowing.objects.filter(user_id_id=loginuserid).filter(following_user_id_id=self.id).count() > 0
+    def isFollowing(self, loggeduserid):
+        return UserFollowing.objects.filter(user_id_id=loggeduserid).filter(following_user_id_id=self.id).count() > 0
+
+    def countFollowing(self):
+        return UserFollowing.objects.filter(user_id_id=self.id).count()
+
+    def countFollowers(self):
+        return UserFollowing.objects.filter(following_user_id=self.id).count()
 
     def __str__(self):
         return self.user_name
