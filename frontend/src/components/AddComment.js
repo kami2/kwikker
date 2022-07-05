@@ -39,7 +39,6 @@ export function AddComment(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(comment);
 
         axiosInstance
             .post(`kwik/create/comment/`, {

@@ -38,7 +38,6 @@ export function CreateKwik(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(content);
 
     axiosInstance
       .post(`kwik/create/`, {

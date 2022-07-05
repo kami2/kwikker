@@ -62,7 +62,6 @@ export default function ProfileToFollow(props) {
     const loadData = () => {
         axiosInstance.get('/users/tofollow')
             .then((res) => {
-                console.log(res.data)
                 setProfileState({ profiles: res.data });
             }).catch((error) => { console.log(error) });
 

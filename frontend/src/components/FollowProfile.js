@@ -27,7 +27,6 @@ export default function FollowProfile(props) {
       axiosInstance
       .delete(`profile/${props.followThis}/unfollow`)
       .then((res) => {
-        console.log('unfollowed')
         props.loadData();
       })
     } else {
@@ -37,7 +36,6 @@ export default function FollowProfile(props) {
         following_user_id: props.followThis
       })
       .then((res) => {
-        console.log("followed")
         props.loadData();
       });
     }

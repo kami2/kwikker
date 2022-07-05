@@ -64,7 +64,6 @@ export default function ProfilePage() {
     const loadData = React.useCallback(() => {
         axiosInstance.get(`profile/${id}`).then((res) => {
             setData({ user: res.data });
-            console.log(res.data);
         });
     }, [id])
 

@@ -16,7 +16,6 @@ export function LikeKwik(props) {
       axiosInstance
       .delete(`kwik/${props.likeThis}/unlike/`)
       .then((res) => {
-        console.log('unliked')
         props.reLoad();
       })
     } else {
@@ -26,7 +25,6 @@ export function LikeKwik(props) {
         kwik: props.likeThis,
       })
       .then((res) => {
-        console.log("liked")
         props.reLoad();
       });
     }

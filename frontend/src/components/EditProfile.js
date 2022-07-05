@@ -52,7 +52,6 @@ export default function EditProfile(props) {
 			setData({ profile: res.data });
             setUsername(res.data['user_name'])
             setAbout(res.data['about'])
-			console.log(res.data);
 		})
 	}, [id])
 

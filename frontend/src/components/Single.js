@@ -107,7 +107,6 @@ export default function Single(props) {
 	const loadData = React.useCallback(() => {
 		axiosInstance.get(`kwik/${id}`).then((res) => {
 			setData({ kwiks: res.data });
-			console.log(res.data);
 		});
 	}, [id])
 

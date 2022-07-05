@@ -48,7 +48,6 @@ export default function FollowingList(props) {
     const loadData = React.useCallback(() => {
         axiosInstance.get(`profile/${props.id}/following`).then((res) => {
             setData({ following: res.data });
-            console.log(res.data);
         });
     }, [props.id])
 
