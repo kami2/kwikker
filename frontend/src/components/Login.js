@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	error: {
+		color: '#bd2319',
+	}
 }));
 
 export default function SignIn() {
@@ -44,6 +47,7 @@ export default function SignIn() {
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
+	const [error, setError] = useState(null)
 
 	const handleChange = (e) => {
 		updateFormData({
@@ -67,16 +71,14 @@ export default function SignIn() {
 				axiosInstance.defaults.headers['Authorization'] =
 					'JWT ' + localStorage.getItem('access_token');
 				navigate('/home');
-				//console.log(res);
-				// console.log(res.data.access); 
+			})
+			.catch(function (error) {
+				setError(error.toJSON());
 			});
 	};
 
 	const classes = useStyles();
 
-	// if (isLoggedIn()) {
-	// 	navigate("/home");
-	// }
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -111,10 +113,7 @@ export default function SignIn() {
 						autoComplete="current-password"
 						onChange={handleChange}
 					/>
-					<FormControlLabel
-						control={<Checkbox value="remember" color="primary" />}
-						label="Remember me"
-					/>
+					{ error && <Typography display='block' className={classes.error}>The username or password is incorrect.<br/> Please try again.</Typography> }
 					<Button
 						type="submit"
 						fullWidth
