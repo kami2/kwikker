@@ -95,7 +95,10 @@ class UnLikeThisKwik(generics.DestroyAPIView):
 class LatestUsers(generics.ListAPIView):
     permission_classes = [KwikUserWritePermission]
     serializer_class = AllUsersSerializer
-    queryset = NewUser.objects.all().order_by('-start_date')[:5]
+
+    def get_queryset(self):
+        user = self.request.user
+        return NewUser.objects.all().exclude(id=user.id).order_by('-start_date')[:5]
 
 
 class LikeThisKwik(generics.CreateAPIView):
