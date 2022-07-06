@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: 10,
     },
-	image: {
-		marginTop: -8,
-		height: 150,
-	},
+    image: {
+        marginTop: -8,
+        height: 150,
+    },
     profile: {
         color: '#2c7a94',
         fontWeight: 'bold',
@@ -91,10 +91,10 @@ export default function ProfilePage() {
                             subheader={data.user.start_date}
                         />
                         <CardMedia
-								className={classes.image}
-								image={`https://picsum.photos/seed/${data.user.id}/600/150`}
-								alt="placeholder"
-							/>
+                            className={classes.image}
+                            image={`https://picsum.photos/seed/${data.user.id}/600/150`}
+                            alt="placeholder"
+                        />
                         <CardContent>
                             <Grid item className={classes.stats}>
                                 <FollowingList following={data.user.countFollowing} id={id} />

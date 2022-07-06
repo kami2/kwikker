@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(3, 0, 2),
 	},
 }));
+
 
 export default function SignUp() {
 	const history = useNavigate();
@@ -94,6 +96,7 @@ export default function SignUp() {
 								variant="outlined"
 								required
 								fullWidth
+								inputProps={{ maxLength: 30 }}
 								id="username"
 								label="Username"
 								name="username"

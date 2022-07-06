@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { currentUser } from '../helpers/login-helpers';
 import Grid from '@material-ui/core/Grid';
 import axiosInstance from '../axios';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
-import ListIcon from '@material-ui/icons/List';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,14 +45,12 @@ const useStyles = makeStyles((theme) => ({
 
 export function RightSide() {
     const classes = useStyles();
-    const { id } = currentUser();
     const [user, setUserState] = useState({ users: [] });
 
     const loadData = () => {
         axiosInstance.get('users/latest')
             .then((res) => {
                 setUserState({ users: res.data });
-                console.log(res.data);
             }).catch((error) => { console.log(error) });
     }
     useEffect(loadData, [setUserState]);

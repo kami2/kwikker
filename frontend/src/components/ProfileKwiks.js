@@ -58,7 +58,6 @@ export default function ProfileKwiks(props) {
     const loadData = React.useCallback(() => {
         axiosInstance.get(`profile/${props.id}/kwiks`).then((res) => {
             setData({ kwiks: res.data });
-            console.log(res.data);
         });
     }, [props.id])
 

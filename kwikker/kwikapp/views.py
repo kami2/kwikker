@@ -16,15 +16,22 @@ from .serializers import CreateKwikSerializer, KwikSerializer, CustomUserSeriali
 class KwikUserWritePermission(BasePermission):
     message = 'Editing kwiks is restricted to the author only.'
 
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            return True
+
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
 
-        return obj.user == request.user
+        if obj.id == request.user.id:
+            return True
+
+        return False
 
 
 class FollowingList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = AllUsersSerializer
 
     def get_queryset(self):
@@ -34,7 +41,7 @@ class FollowingList(generics.ListAPIView):
 
 
 class FollowersList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = AllUsersSerializer
 
     def get_queryset(self):
@@ -42,13 +49,13 @@ class FollowersList(generics.ListAPIView):
 
 
 class EditProfile(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = NewUser.objects.all()
     serializer_class = EditProfileSerializer
 
 
 class ProfilesToFollowList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = UserDetailSerializer
 
     def get_queryset(self):
@@ -57,7 +64,7 @@ class ProfilesToFollowList(generics.ListAPIView):
 
 
 class OnlyThisProfileKwiks(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = KwikSerializer
 
     def get_queryset(self):
@@ -65,7 +72,7 @@ class OnlyThisProfileKwiks(generics.ListAPIView):
 
 
 class KwikListAll(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = KwikSerializer
 
     def get_queryset(self):
@@ -75,7 +82,7 @@ class KwikListAll(generics.ListAPIView):
 
 
 class UnLikeThisKwik(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = LikeKwik.objects.all()
     serializer_class = LikeKwikSerializer
 
@@ -86,25 +93,25 @@ class UnLikeThisKwik(generics.DestroyAPIView):
 
 
 class LatestUsers(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = AllUsersSerializer
     queryset = NewUser.objects.all().order_by('-start_date')[:5]
 
 
 class LikeThisKwik(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = LikeKwik.objects.all()
     serializer_class = LikeKwikSerializer
 
 
 class AddComment(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = CommentKwik.objects.all()
     serializer_class = CommentSerializer
 
 
 class DeleteComment(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = CommentKwik.objects.all()
     serializer_class = CommentSerializer
 
@@ -115,13 +122,13 @@ class DeleteComment(generics.DestroyAPIView):
 
 
 class UserDetail(generics.RetrieveAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [KwikUserWritePermission]
     serializer_class = UserDetailSerializer
     queryset = NewUser.objects.all()
 
 
 class KwikDetail(generics.RetrieveAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     queryset = Kwik.objects.all()
     serializer_class = DetailKwikSerializer
 
@@ -134,7 +141,7 @@ class KwikDetailFilter(generics.ListAPIView):
 
 
 class CreateKwik(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = Kwik.objects.all()
     serializer_class = CreateKwikSerializer
 
@@ -146,13 +153,13 @@ class DeleteKwik(generics.RetrieveDestroyAPIView):
 
 
 class FollowProfile(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = UserFollowing.objects.all()
     serializer_class = FollowingSerializer
 
 
 class UnFollowProfile(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [KwikUserWritePermission]
     queryset = UserFollowing.objects.all()
     serializer_class = FollowingSerializer
 

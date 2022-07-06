@@ -1,7 +1,6 @@
 import React from 'react';
 import axiosInstance from '../axios';
 import { currentUser } from '../helpers/login-helpers';
-import { Button } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 
 

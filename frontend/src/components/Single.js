@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import { AddComment } from './AddComment';
-import { currentUser, isLoggedIn } from '../helpers/login-helpers';
+import { currentUser } from '../helpers/login-helpers';
 import { Link } from 'react-router-dom';
 
 //MaterialUI
@@ -116,94 +116,94 @@ export default function Single(props) {
 
 	return (
 		<Layout>
-		<Container component="main">
-			<Grid container justifyContent="center" className={classes.root}>
-				<Grid item>
-					<Card variant="outlined">
-						<CardHeader className={classes.kwikTitle}
-							avatar={<Link to={`/profile/${data.kwiks.user}`}>
-								<Avatar aria-label="recipe" className={classes.avatar}>
-									<img src={data.kwiks.avatar} alt="avatar" />
-								</Avatar>
-							</Link>
-							}
-							title={<Link to={`/profile/${data.kwiks.user}`} className={classes.link}>{data.kwiks.user_name}</Link>}
-							subheader={data.kwiks.kwik_date}
-							action={String(user.id) === String(data.kwiks.user) &&
-								<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />}
-						/>
-						<Link to={`/kwik/${data.kwiks.id}`}>
-							<CardMedia
-								className={classes.image}
-								image={`https://picsum.photos/seed/${data.kwiks.id}/600/150`}
-								alt="placeholder"
+			<Container component="main">
+				<Grid container justifyContent="center" className={classes.root}>
+					<Grid item>
+						<Card variant="outlined">
+							<CardHeader className={classes.kwikTitle}
+								avatar={<Link to={`/profile/${data.kwiks.user}`}>
+									<Avatar aria-label="recipe" className={classes.avatar}>
+										<img src={data.kwiks.avatar} alt="avatar" />
+									</Avatar>
+								</Link>
+								}
+								title={<Link to={`/profile/${data.kwiks.user}`} className={classes.link}>{data.kwiks.user_name}</Link>}
+								subheader={data.kwiks.kwik_date}
+								action={String(user.id) === String(data.kwiks.user) &&
+									<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />}
 							/>
-						</Link>
-						<CardContent>
-							<Typography
-								gutterBottom
-								variant="h6"
-								component="h2"
-								display="block"
-								className={classes.kwikText}
-							>
-								{data.kwiks.content}
-							</Typography>
-							<div className={classes.buttons}>
-								<div className={classes.likes_counter}>
-									<LikeKwik reLoad={loadData} likeThis={data.kwiks.id} isLiked={data.kwiks.is_liked} />
-									Likes ({data.kwiks.countedlikes})
+							<Link to={`/kwik/${data.kwiks.id}`}>
+								<CardMedia
+									className={classes.image}
+									image={`https://picsum.photos/seed/${data.kwiks.id}/600/150`}
+									alt="placeholder"
+								/>
+							</Link>
+							<CardContent>
+								<Typography
+									gutterBottom
+									variant="h6"
+									component="h2"
+									display="block"
+									className={classes.kwikText}
+								>
+									{data.kwiks.content}
+								</Typography>
+								<div className={classes.buttons}>
+									<div className={classes.likes_counter}>
+										<LikeKwik reLoad={loadData} likeThis={data.kwiks.id} isLiked={data.kwiks.is_liked} />
+										Likes ({data.kwiks.countedlikes})
+									</div>
 								</div>
-							</div>
-						</CardContent>
-					</Card>
+							</CardContent>
+						</Card>
+					</Grid>
 				</Grid>
-			</Grid>
 
-			<div className={classes.addcomment}>
-				<AddComment load={loadData} kwikId={id} />
-			</div>
+				<div className={classes.addcomment}>
+					<AddComment load={loadData} kwikId={id} />
+				</div>
 
-			<Grid container justifyContent="center">
-				<Grid item xs={12}>
-					<Card className={classes.comments}>
-						<Typography variant="h6">Comments ({data.kwiks.countedcomments})</Typography>
-						{data.kwiks.comment?.length === 0 &&
-							<Typography className={classes.be_first}>Be the first to comment</Typography>}
-						<Timeline>
-							{data.kwiks.comment?.map((kwik, i, { length }) => {
-								return (
-									<TimelineItem key={kwik.id}>
-										<TimelineOppositeContent style={{ display: 'none' }} />
-										<TimelineSeparator>
-											<Avatar>
-												<img src={kwik.avatar} alt="avatar" />
-											</Avatar>
-											{length - 1 === i ? null : <TimelineConnector />}
-										</TimelineSeparator>
-										<TimelineContent>
-											<Typography variant="subtitle1" className={classes.comment_header}>
-												<Typography display="inline" className={classes.comment_author}>
-													<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
-												</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}
-												{String(user.id) === String(kwik.user) && <DeleteComment reFresh={loadData} toDelete={kwik.id} />}
+				<Grid container justifyContent="center">
+					<Grid item xs={12}>
+						<Card className={classes.comments}>
+							<Typography variant="h6">Comments ({data.kwiks.countedcomments})</Typography>
+							{data.kwiks.comment?.length === 0 &&
+								<Typography className={classes.be_first}>Be the first to comment</Typography>}
+							<Timeline>
+								{data.kwiks.comment?.map((kwik, i, { length }) => {
+									return (
+										<TimelineItem key={kwik.id}>
+											<TimelineOppositeContent style={{ display: 'none' }} />
+											<TimelineSeparator>
+												<Avatar>
+													<img src={kwik.avatar} alt="avatar" />
+												</Avatar>
+												{length - 1 === i ? null : <TimelineConnector />}
+											</TimelineSeparator>
+											<TimelineContent>
+												<Typography variant="subtitle1" className={classes.comment_header}>
+													<Typography display="inline" className={classes.comment_author}>
+														<Link to={`/profile/${kwik.user}`} className={classes.link}>{kwik.user_name}</Link>
+													</Typography> - <Typography display="inline" className={classes.comment_date}>{kwik.comment_date}
+														{String(user.id) === String(kwik.user) && <DeleteComment reFresh={loadData} toDelete={kwik.id} />}
+													</Typography>
 												</Typography>
-											</Typography>
-											<Typography variant="caption" display="block" className={classes.comment_content}>
-												{kwik.comment}
-											</Typography>
-										</TimelineContent>
-									</TimelineItem>
-								);
-							})}
-						</Timeline>
-					</Card>
+												<Typography variant="caption" display="block" className={classes.comment_content}>
+													{kwik.comment}
+												</Typography>
+											</TimelineContent>
+										</TimelineItem>
+									);
+								})}
+							</Timeline>
+						</Card>
+					</Grid>
 				</Grid>
-			</Grid>
 
 
 
-		</Container>
+			</Container>
 		</Layout>
 	);
 }

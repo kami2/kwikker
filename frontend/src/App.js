@@ -13,7 +13,6 @@ function App() {
     const loadData = () => {
         axiosInstance.get('/')
             .then((res) => {
-                console.log(res.data)
                 setAppState({ kwiks: res.data });
             }).catch((error) => { console.log(error) });
 
@@ -24,9 +23,9 @@ function App() {
 
     return (
         <Layout>
-        <div className="App">
-            <Kwik reLoad={loadData} kwiks={appState.kwiks} />
-        </div>
+            <div className="App">
+                <Kwik reLoad={loadData} kwiks={appState.kwiks} />
+            </div>
         </Layout>
     );
 }
