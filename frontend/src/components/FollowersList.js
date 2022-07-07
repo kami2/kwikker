@@ -67,7 +67,7 @@ export default function FollowersList(props) {
 
     return (
         <div className={classes.root}>
-            <Chip size="small" avatar={<Avatar>{props.followers}</Avatar>} label="Following" onClick={handleClick} />
+            <Chip size="small" avatar={<Avatar>{props.followers}</Avatar>} label="Followers" onClick={handleClick} />
             <Popover
                 id={id}
                 open={open}

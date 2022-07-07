@@ -118,7 +118,7 @@ export default function Single(props) {
 		<Layout>
 			<Container component="main">
 				<Grid container justifyContent="center" className={classes.root}>
-					<Grid item>
+					<Grid item xs={12}>
 						<Card variant="outlined">
 							<CardHeader className={classes.kwikTitle}
 								avatar={<Link to={`/profile/${data.kwiks.user}`}>

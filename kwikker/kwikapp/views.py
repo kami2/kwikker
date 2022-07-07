@@ -4,7 +4,7 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthentic
     AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.db.models import Q
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -77,8 +77,8 @@ class KwikListAll(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Kwik.objects.filter(user__followers__in=UserFollowing.objects.filter(user_id=user)).order_by('-kwik_date')
-        # return Kwik.objects.all().order_by('-kwik_date')
+        # return Kwik.objects.filter(user__followers__in=UserFollowing.objects.filter(user_id=user)).order_by('-kwik_date')
+        return Kwik.objects.filter(Q(user__followers__in=UserFollowing.objects.filter(user_id=user)) | Q(user=user)).order_by('-kwik_date')
 
 
 class UnLikeThisKwik(generics.DestroyAPIView):
@@ -153,6 +153,11 @@ class DeleteKwik(generics.RetrieveDestroyAPIView):
     permission_classes = [KwikUserWritePermission]
     queryset = Kwik.objects.all()
     serializer_class = KwikSerializer
+
+    def delete(self, request, pk):
+        kwik_to_delete = Kwik.objects.filter(id=pk).filter(user_id=request.user.id)
+        kwik_to_delete.delete()
+        return Response({"status": "ok"}, status=status.HTTP_200_OK)
 
 
 class FollowProfile(generics.CreateAPIView):

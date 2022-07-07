@@ -64,7 +64,7 @@ export function KwikElement(props) {
     const { id } = currentUser();
 
     return (
-        <Grid item>
+        <Grid item xs={12}>
             <Card variant="outlined">
                 <CardHeader className={classes.kwikTitle}
                     avatar={<Link to={`/profile/${props.kwik.user}`}>
