@@ -45,18 +45,18 @@ export default function FollowingList(props) {
 
     const [data, setData] = useState({ following: [] });
 
-    const loadData = React.useCallback(() => {
-        axiosInstance.get(`profile/${props.id}/following`).then((res) => {
-            setData({ following: res.data });
-        });
-    }, [props.id])
+    const loadData = () => {
+        axiosInstance.get(`profile/${props.id}/following`)
+            .then((res) => {
+                setData({ following: res.data });
+            })
+    };
 
-    useEffect(() => {
-        loadData()
-    }, [loadData]);
+    useEffect(loadData, [props.id, setData]);
+
 
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+        data.following.length > 0 ? setAnchorEl(event.currentTarget) : console.log('Nobody is followed');
     };
 
     const handleClose = () => {
@@ -83,7 +83,7 @@ export default function FollowingList(props) {
                     horizontal: 'right',
                 }}
             >
-                <div >
+                <div>
                     {data.following.map((list) => {
                         return (
                             <Link key={list.id} style={{

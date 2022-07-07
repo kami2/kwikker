@@ -21,7 +21,12 @@ const Kwiks = (props) => {
 	const classes = useStyles();
 
 
-	if (!kwiks || kwiks.length === 0) return <p>Can not find any kwiks, sorry</p>;
+	if (!kwiks || kwiks.length === 0) return (
+		<>
+	<CreateKwik forSubmit={props.reLoad} />
+	<p>Can not find any kwiks, sorry</p>
+	</> 
+	);
 	return (
 		<div>
 			<CreateKwik forSubmit={props.reLoad} />

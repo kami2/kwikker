@@ -107,7 +107,7 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item><ProfileKwiks id={id} /></Grid>
+                <Grid item xs={12}><ProfileKwiks id={id} /></Grid>
             </Grid>
         </Layout>
     );
