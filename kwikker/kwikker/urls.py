@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import (
 
 )
 
-from projectKwik.kwikker.kwikapp.views import MyTokenObtainPairView
+from kwikapp.views import MyTokenObtainPairView
 
 urlpatterns = [
     path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
