@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { currentUser } from '../helpers/login-helpers';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
@@ -17,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(3),
     },
-
   },
+  link: {
+    textDecoration: 'none',
+  }
 }));
 
 export function LeftSide() {
@@ -31,11 +34,11 @@ export function LeftSide() {
         container
         direction="column"
         alignItems="flex-start">
-        <Button size='large' startIcon={<HomeOutlinedIcon />} href='/home'>Home</Button>
-        <Button size='large' startIcon={<PersonOutlineIcon />} href={`/profile/${id}`}>Profile</Button>
-        <Button size='large' startIcon={<GroupAddOutlinedIcon />} href='/users'>Kwikkers</Button>
-        <Button size='large' startIcon={<SettingsOutlinedIcon />} href='/edit'>Edit Profile</Button>
-        <Button size='large' startIcon={<MeetingRoomOutlinedIcon />} href='/logout'>Logout</Button>
+        <Link to='/home' className={classes.link}><Button size='large' startIcon={<HomeOutlinedIcon />} >Home</Button></Link>
+        <Link to={`/profile/${id}`} className={classes.link}><Button size='large' startIcon={<PersonOutlineIcon />}>Profile</Button></Link>
+        <Link to='/users' className={classes.link}><Button size='large' startIcon={<GroupAddOutlinedIcon />}>Kwikkers</Button></Link>
+        <Link to='/edit' className={classes.link}><Button size='large' startIcon={<SettingsOutlinedIcon />}>Edit Profile</Button></Link>
+        <Link to='/logout' className={classes.link}><Button size='large' startIcon={<MeetingRoomOutlinedIcon />}>Logout</Button></Link>
       </Grid>
     </div>
   );

@@ -23,9 +23,9 @@ const Kwiks = (props) => {
 
 	if (!kwiks || kwiks.length === 0) return (
 		<>
-	<CreateKwik forSubmit={props.reLoad} />
-	<p>Can not find any kwiks, sorry</p>
-	</> 
+			<CreateKwik forSubmit={props.reLoad} />
+			<p>Can not find any kwiks, sorry</p>
+		</>
 	);
 	return (
 		<div>

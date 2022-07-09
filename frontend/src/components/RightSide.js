@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
         },
         fontSize: '14px',
         margin: 10,
+    },
+    linkButton: {
+        textDecoration: 'none',
     }
 }));
 
@@ -64,11 +67,15 @@ export function RightSide() {
                 <div className={classes.title}>Latest kwikkers:</div>
                 {user.users.map((user) => {
                     return (
-                        <Button
-                            className={classes.button}
-                            key={user.id}
-                            startIcon={<Avatar alt="avatar" className={classes.small} src={user.avatar} />}
-                            href={`/profile/${user.id}`}>{user.user_name}</Button>
+                        <div key={user.id}>
+                            <Link to={`/profile/${user.id}`} className={classes.linkButton}>
+                                <Button
+                                    className={classes.button}
+                                    startIcon={<Avatar alt="avatar" className={classes.small} src={user.avatar} />}>
+                                    {user.user_name}
+                                </Button>
+                            </Link>
+                        </div>
                     );
                 })}
                 <Link to='/users' className={classes.link}>Click here for more...</Link>

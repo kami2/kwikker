@@ -8,6 +8,7 @@ import { Grid, Typography } from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from 'react-router-dom'
 
 import FollowProfileButton from "./FollowProfileButton";
 
@@ -82,7 +83,7 @@ export default function ProfileToFollow(props) {
                 >{profile.profiles.map((profile) => {
                     return (
                         <Grid item key={profile.id} xs>
-                            <Link underline="none" href={`/profile/${profile.id}`}>
+                            <Link underline="none" component={RouterLink} to={`/profile/${profile.id}`}>
                                 <Paper className={classes.paper} variant="outlined">
                                     <div className={classes.inpaper}>
                                         <Avatar variant="rounded" alt="avatar" src={profile.avatar} />

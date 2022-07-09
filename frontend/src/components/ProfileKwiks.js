@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axios";
+import { Link as RouterLink } from 'react-router-dom'
 
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Link from "@material-ui/core/Link";
+import Link from '@material-ui/core/Link'
 import { LikeKwik } from "./LikeKwik";
 
 
@@ -69,8 +70,9 @@ export default function ProfileKwiks(props) {
         <Grid container justifyContent="center" spacing={2} className={classes.root}>
             {data.kwiks?.map((kwik) => {
                 return (
+
                     <Grid item xs={11} key={kwik.id}>
-                        <Link underline="none" href={`/kwik/${kwik.id}`}>
+                        <Link underline="none" component={RouterLink} to={`/kwik/${kwik.id}`}>
                             <Paper variant="outlined" className={classes.paper}>
                                 <Typography className={classes.date}>{kwik.kwik_date}</Typography>
                                 <Typography className={classes.content}>{kwik.content}</Typography>
@@ -80,6 +82,7 @@ export default function ProfileKwiks(props) {
                                     </Typography>
                                     <Typography className={classes.comments} display="inline">Comments ({kwik.countedcomments})</Typography>
                                 </div>
+
                             </Paper>
                         </Link>
                     </Grid>

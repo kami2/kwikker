@@ -49,8 +49,8 @@ export default function FollowingList(props) {
         axiosInstance.get(`profile/${props.id}/following`)
             .then((res) => {
                 setData({ following: res.data });
-            })
-    };
+            });
+    }
 
     useEffect(loadData, [props.id, setData]);
 
