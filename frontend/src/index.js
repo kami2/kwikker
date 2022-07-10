@@ -20,7 +20,6 @@ import EditProfile from './components/EditProfile';
 
 const routing = (
   <BrowserRouter basename='/'>
-    <React.StrictMode>
       <Header />
       <Routes>
         <Route exact path='/home' element={<App />} />
@@ -33,7 +32,6 @@ const routing = (
         <Route exact path='/logout' element={<Logout />} />
       </Routes>
       <Footer />
-    </React.StrictMode>
   </BrowserRouter>
 );
 

@@ -70,6 +70,7 @@ export default function SignIn() {
 				navigate('/home');
 			})
 			.catch(function (error) {
+				console.log(error);
 				setError(error.toJSON());
 			});
 	};
@@ -123,7 +124,7 @@ export default function SignIn() {
 					</Button>
 					<Grid container>
 						<Grid item>
-							<Link href="/register" variant="body2">
+							<Link to="/register" variant="body2">
 								{"Don't have an account? Sign Up"}
 							</Link>
 						</Grid>
