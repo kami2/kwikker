@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom'
+
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -130,7 +132,7 @@ export default function SignUp() {
 					</Button>
 					<Grid container justifyContent="flex-end">
 						<Grid item>
-							<Link href="/" variant="body2">
+							<Link underline='none' component={RouterLink} to="/" variant="body2">
 								Already have an account? Sign in
 							</Link>
 						</Grid>

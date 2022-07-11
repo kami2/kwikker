@@ -78,7 +78,7 @@ class KwikListAll(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         # return Kwik.objects.filter(user__followers__in=UserFollowing.objects.filter(user_id=user)).order_by('-kwik_date')
-        return Kwik.objects.filter(Q(user__followers__in=UserFollowing.objects.filter(user_id=user)) | Q(user=user)).order_by('-kwik_date')
+        return Kwik.objects.filter(Q(user__followers__in=UserFollowing.objects.filter(user_id=user)) | Q(user=user)).order_by('-kwik_date').distinct()
 
 
 class UnLikeThisKwik(generics.DestroyAPIView):

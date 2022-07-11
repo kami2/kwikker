@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom'
 
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
@@ -124,7 +125,7 @@ export default function SignIn() {
 					</Button>
 					<Grid container>
 						<Grid item>
-							<Link to="/register" variant="body2">
+							<Link underline='none' component={RouterLink} to="/register" variant="body2">
 								{"Don't have an account? Sign Up"}
 							</Link>
 						</Grid>
