@@ -55,6 +55,7 @@ export default function FollowersList(props) {
 
     const handleClick = (event) => {
         data.following.length > 0 ? setAnchorEl(event.currentTarget) : console.log('Nobody is followed');
+        loadData();
     };
 
     const handleClose = () => {
