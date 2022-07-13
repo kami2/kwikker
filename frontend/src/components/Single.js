@@ -25,7 +25,7 @@ import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 
-import { DeleteKwik } from './DeleteKwik';
+import { DeleteSingleKwik } from './DeleteSingleKwik';
 import { LikeKwik } from './LikeKwik';
 import { DeleteComment } from './DeleteComment';
 import Layout from './Layout';
@@ -130,7 +130,7 @@ export default function Single(props) {
 								title={<Link to={`/profile/${data.kwiks.user}`} className={classes.link}>{data.kwiks.user_name}</Link>}
 								subheader={data.kwiks.kwik_date}
 								action={String(user.id) === String(data.kwiks.user) &&
-									<DeleteKwik reFresh={props.reLoad} toDelete={data.kwiks.id} />}
+									<DeleteSingleKwik toDelete={data.kwiks.id} />}
 							/>
 							<Link to={`/kwik/${data.kwiks.id}`}>
 								<CardMedia
