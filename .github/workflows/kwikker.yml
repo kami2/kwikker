@@ -29,14 +29,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         
-    - name: Setup directory
-      working-directory: ./frontend
-    
     - name: Setup CI
+      working-directory: ./frontend
       run: npm ci
     
     - name: Run build
+      working-directory: ./frontend
       run: npm run build --if-present
       
     - name: Run test
+      working-directory: ./frontend
       run: npm test
