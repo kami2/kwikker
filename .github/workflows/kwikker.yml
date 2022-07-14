@@ -25,7 +25,7 @@ jobs:
       
     - name: Setup CI
       working-directory: ./frontend
-      run: npm ci
+      run: npm install
         
     - name: Run build
       working-directory: ./frontend
