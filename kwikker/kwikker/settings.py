@@ -87,13 +87,17 @@ WSGI_APPLICATION = 'kwikker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#PostgreSQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': ‘<db_name>’,
+        'USER': '<db_username>',
+        'PASSWORD': '<password>',
+        'HOST': '<db_hostname_or_ip>',
+        'PORT': '<db_port>',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,7 +135,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
