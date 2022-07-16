@@ -22,13 +22,13 @@ export default function Layout(props) {
         <PrivateRoute>
             <div className={classes.root}>
                 <Grid container direction='row' justifyContent="center">
-                    <Grid item xs>
+                    <Grid item xs sm={4}>
                         <div className={classes.leftMenu}><LeftSide /></div>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={12} sm={4}>
                         {props.children}
                     </Grid>
-                    <Grid item xs md>
+                    <Grid item xs sm={4}>
                         <RightSide />
                     </Grid>
                 </Grid>

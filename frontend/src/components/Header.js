@@ -10,6 +10,12 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: 5,
 		textAlign: 'center',
 	},
+	logo: {
+		flex: 1,
+		width: '95%',
+		height: '95%',
+		resizeMode: 'cover',
+	},
 }));
 
 const logo = '/logo_3.png';
@@ -22,8 +28,8 @@ export default function Header() {
 			<Grid container direction="row"
 				justifyContent="center"
 				alignItems="flex-start">
-				<Grid item xs>
-					<Link to="/home"><img src={process.env.PUBLIC_URL + logo} alt="Logo" /></Link>
+				<Grid item xs sm={4}>
+					<Link to="/home"><img src={process.env.PUBLIC_URL + logo} className={classes.logo} alt="Logo" /></Link>
 				</Grid>
 			</Grid>
 		</div>
