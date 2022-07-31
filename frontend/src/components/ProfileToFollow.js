@@ -78,11 +78,10 @@ export default function ProfileToFollow(props) {
                     container
                     spacing={1}
                     direction="column"
-                    justifyContent="flex-start"
                     alignItems="stretch"
                 >{profile.profiles.map((profile) => {
                     return (
-                        <Grid item key={profile.id} xs>
+                        <Grid item key={profile.id} xs={11} sm={12}>
                             <Link underline="none" component={RouterLink} to={`/profile/${profile.id}`}>
                                 <Paper className={classes.paper} variant="outlined">
                                     <div className={classes.inpaper}>

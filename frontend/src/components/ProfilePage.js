@@ -78,7 +78,7 @@ export default function ProfilePage() {
     return (
         <Layout>
             <Grid container justifyContent="center" spacing={2} className={classes.root}>
-                <Grid item xs={12}>
+                <Grid item xs={11} sm={12}>
                     <Card variant="outlined">
                         <CardHeader
                             avatar={

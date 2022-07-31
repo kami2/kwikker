@@ -16,7 +16,8 @@ import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginLeft: 10,
     },
     usernameField: {
         width: '25ch',
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         color: '#5d6c85',
+        marginLeft: 10,
     },
     buttonsGroup: {
         display: 'flex',
